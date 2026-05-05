@@ -30,10 +30,10 @@ Names, IDs, prices, and dates are placeholders. Your real run will show your act
   Move to draft (archived but still in a published collection)  1
     • Product N    in published collection "Best Sellers"
 
-  To apply for real, say: "apply the audit for real."
+  To apply for real, confirm with the count: "yes — apply these 14."
   To narrow: try, e.g., "audit only Vendor A."
 
-> You: "Apply for real."
+> You: "yes — apply these 14"
 
   Re-checking 14 candidates… ok, none drifted.
 

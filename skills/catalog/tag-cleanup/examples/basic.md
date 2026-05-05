@@ -31,9 +31,9 @@
   If you confirm: 4 clusters apply (2 case + 2 near-duplicate),
                   56 products updated.
 
-  Type "yes" to apply.
+  Type "yes — apply these 4 clusters (56 products)" to apply.
 
-> You: "yes"
+> You: "yes — apply these 4 clusters (56 products)"
 
   Re-checking 56 affected products… 1 drifted (Product Z) — skipping it.
 

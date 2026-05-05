@@ -123,12 +123,13 @@ Stores accumulate product-status drift over time. Some products that should be s
        • Product D     [ID …004]   was: ARCHIVED  (in collection: "Featured")
        …
 
-   Type "yes" to apply, "modify" to adjust, "no" to abort.
-   Dry-run is currently: <on|off>.
+   Type "yes — apply these <N>" to apply (the count is required so a casual "ok" can never trigger a bulk run).
+   Or: "modify" to adjust, "no" to abort.
+   Preview-only is currently: <on|off>.
    ```
    No raw GIDs in body unless the merchant asks for them. No real product names — the **runtime** will show real names; this skill's *examples* in this repo only ever use placeholders.
 
-5. **Confirm.** Wait for explicit confirmation. If `dry_run = true` (default), tell the merchant the dry-run is on and they need to opt out (e.g., "apply for real") to actually write.
+5. **Confirm.** Wait for explicit confirmation. If `dry_run = true` (default), tell the merchant the preview-only mode is on and they need to opt out (e.g., "apply for real") to actually write. The bulk-write confirmation must include the exact change count — accept only `yes — apply these <N>` where `<N>` matches the proposed count from step 4. A bare "yes" or "ok" is rejected; ask the merchant to repeat with the count. This applies regardless of `write_defaults`.
 
 6. **Execute.**
    - If `dry_run = true`, stop here. Output the run log only.

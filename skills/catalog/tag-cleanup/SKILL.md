@@ -76,10 +76,12 @@ Composes with `_system/safe-write`.
      "limited-edition-2024-spring" (1)   ← intentional?
      ...
 
-   Type "yes" to apply the case-duplicate and near-duplicate consolidations.
+   Type "yes — apply these <C> clusters (<P> products)" to apply the case-duplicate
+   and near-duplicate consolidations. The count is required so a bare "yes" can't
+   accidentally rename tags across dozens of products.
    Single-use tags are NOT auto-changed — review and fix individually if you want.
    ```
-5. **Confirm + execute.** For each affected product, `update-product` with the consolidated tag list. Cap at 200 products per run; surface partial completion if cohort exceeds.
+5. **Confirm + execute.** Wait for the count-inclusive confirmation — accept only `yes — apply these <C> clusters (<P> products)` where `<C>` matches the cluster count and `<P>` matches the affected-product count from step 4. A bare "yes" is rejected; ask the merchant to repeat with the counts. This applies regardless of `write_defaults`. For each affected product, `update-product` with the consolidated tag list. Cap at 200 products per run; surface partial completion if cohort exceeds.
 6. **Log.** Per product: previous tag list → new tag list. Inverse op is the previous tag list.
 
 ## Safety

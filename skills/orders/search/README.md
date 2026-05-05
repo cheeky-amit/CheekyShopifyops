@@ -31,4 +31,4 @@ It translates your plain-language query into an order search and returns either 
 
 - [`orders.daily-pulse`](../daily-pulse/) — quick read on today's sales.
 - [`orders.fulfillment-watchlist`](../fulfillment-watchlist/) — orders stuck unfulfilled.
-- [`customers.find`](../../customers/find/) — find a customer first, then their orders.
+- [`customers.high-value-list`](../../customers/high-value-list/) — find a customer by lifetime spend, then look at their orders.

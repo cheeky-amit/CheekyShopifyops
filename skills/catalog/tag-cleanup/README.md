@@ -14,7 +14,7 @@ You'll get clusters: case-only duplicates ("Sale", "sale", "SALE"), near-duplica
 
 ## When it will ask before doing anything
 
-You always see the full proposal first — every cluster, every count, every product affected. Nothing happens until you type "yes." If a tag in a cluster is part of a smart collection's auto-rule (so renaming it would silently break that collection), the skill skips that cluster and tells you which collection to fix first.
+You always see the full proposal first — every cluster, every count, every product affected. Bulk tag changes need an explicit confirmation that includes the count: e.g., "yes — apply these 4 clusters (56 products)." A bare "yes" is rejected on purpose, because muscle-memory shouldn't rename tags across dozens of products. If a tag in a cluster is part of a smart collection's auto-rule (so renaming it would silently break that collection), the skill skips that cluster and tells you which collection to fix first.
 
 ## What it won't do
 

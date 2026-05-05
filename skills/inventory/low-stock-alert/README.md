@@ -1,6 +1,6 @@
 # What's running low
 
-Products at or below a stock threshold, ranked by recent sales velocity — so the fast movers you need to reorder are at the top.
+Products at or below a stock threshold, ranked by recent sales velocity — so the fast movers you need to reorder are at the top. Running low on a slow mover is fine; running low on a fast mover is a fire.
 
 ## What you can say
 
@@ -10,11 +10,7 @@ Products at or below a stock threshold, ranked by recent sales velocity — so t
 
 ## What you'll see back
 
-A ranked list. Each row shows the product, current stock, recent 30-day sales, and a one-line note. Fast movers running low are flagged for urgent attention. Slow movers running low are still listed — you'll just see "fine to wait" next to them.
-
-## Why ranked by recent sales
-
-Running low on a slow mover is fine. Running low on a fast mover is a fire. The ranking puts the fires at the top so you don't bury a real reorder behind ten products that nobody buys anyway.
+A ranked list. Each row shows the product, current stock, recent 30-day sales, and a one-line note. Fast movers running low are flagged for urgent attention and sit at the top so a real reorder isn't buried behind ten products nobody buys anyway. Slow movers running low are still listed — you'll just see "fine to wait" next to them.
 
 ## What it won't do
 

@@ -29,7 +29,7 @@ This is a bulk write. Confirmation has to be explicit and include the count: "ye
 
 ## Want to see under the hood
 
-It searches your catalog with the group you specified, lists every match, asks for explicit confirmation including the count, re-checks each product right before writing (so any drift since the preview is caught), and writes status changes in one batched call. The run log includes the inverse so undo is one ask.
+It searches your catalog with the group you specified, lists every match, asks for explicit confirmation including the count, re-checks each product right before writing (so any drift since the preview is caught), and applies status changes together in one tight pass — the blast radius of one "yes" stays small because the run is capped at 50. The run log includes the inverse so undo is one ask.
 
 ## How this is different from product-status-audit
 

@@ -1,6 +1,6 @@
 # Today's order pulse
 
-A quick six-line read on how today is going. Ask it any time of day.
+A quick five-line read on how today is going. Ask it any time of day.
 
 ## What you can say
 
@@ -10,7 +10,7 @@ A quick six-line read on how today is going. Ask it any time of day.
 
 ## What you'll see back
 
-Six lines: order count, total sales, average order value, paid orders, unfulfilled count, and the age of the oldest unfulfilled order. Compared to yesterday, so you know if today is on pace, ahead, or behind. Empty days get an "0 today" message with yesterday's number for context.
+Five lines: order count, total sales, average order value, paid orders, and unfulfilled count (with the age of the oldest unfulfilled inlined). Compared to yesterday, so you know if today is on pace, ahead, or behind. Empty days get an "0 today" message with yesterday's number for context.
 
 ## What it won't do
 

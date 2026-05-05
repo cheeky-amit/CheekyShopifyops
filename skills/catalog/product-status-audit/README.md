@@ -14,7 +14,7 @@ You'll get a grouped preview: products to archive (live but out of stock with no
 
 ## When it will ask before doing anything
 
-The first run is preview-only by default. To actually change anything, you have to opt in by saying something like "apply for real." Before that, you'll see the full count and direction (e.g. "12 to archive, 3 to activate, 1 to move to draft"). Bulk changes need an explicit confirmation that includes the count — "yes — apply these 16" — so you can never accidentally trigger 500 status changes with a casual "ok."
+The first run is preview-only by default. To actually change anything, you have to opt in by saying something like "apply for real." Before that, you'll see the full count and direction (e.g. "12 to archive, 3 to activate, 1 to move to draft"). Bulk changes need an explicit confirmation that includes the count — "yes — apply these 14" — so you can never accidentally trigger 500 status changes with a casual "ok."
 
 ## What it won't do
 
@@ -31,7 +31,7 @@ The first run is preview-only by default. To actually change anything, you have 
 
 ## Want to see under the hood
 
-It searches your catalog in three buckets, looks up recent sales for each candidate, and writes status changes in batches of 50 only after you confirm. Every run leaves a full log with before/after status and an "undo" path you can ask for in plain words.
+It searches your catalog in three buckets, looks up recent sales for each candidate, and writes status changes a few at a time — so a single failure doesn't take down the run — only after you confirm. Every run leaves a full log with before/after status and an "undo" path you can ask for in plain words.
 
 ## Related
 
