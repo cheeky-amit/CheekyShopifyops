@@ -4,19 +4,23 @@ Thanks for considering a contribution. This repo is a library of Claude Skills f
 
 ## Before you write a skill
 
-1. **Check the inventory.** Is there already a skill that does this? See `skills/` and [`docs/decisions/0005-skill-inventory.md`](docs/decisions/0005-skill-inventory.md). If your idea overlaps, propose composing existing primitives instead.
+1. **Check the inventory.** Is there already a skill that does this? See `skills/` and [`docs/contributors/decisions/0005-skill-inventory.md`](docs/contributors/decisions/0005-skill-inventory.md). If your idea overlaps, propose composing existing primitives instead.
 2. **Confirm MCP support.** The skill must work with the connected Shopify MCP only. If it needs a different MCP or external API, it doesn't belong here.
 3. **Check the blocked list.** Refunds, gift card writes, staff management, theme publishing, and live theme writes are blocked at the MCP level. Don't try to route around them.
 
 ## Authoring a skill
 
+Read the [working contract](docs/contributors/working-contract.md) first — it covers hard rules (strict MCP scope, no real data, preview → confirm → execute, etc.) that every skill must follow.
+
+> **Note:** `/CLAUDE.md` at the repo root is now the merchant-facing operator's manual. Don't add engineering content there — engineering rules live in [`docs/contributors/working-contract.md`](docs/contributors/working-contract.md). If you need to update merchant-visible front-door copy, read both files first to keep voice consistent.
+
 1. Pick a category (`catalog`, `inventory`, `orders`, `customers`, `promotions`, `analytics`, `retention`, `storefront`, `reporting`, or propose a new one in your PR).
 2. Copy an existing skill folder as a starting point.
 3. Choose an ID: `<category>.<kebab-name>` — e.g., `inventory.cycle-count`. Folder path mirrors the ID's kebab portion.
-4. Fill in `SKILL.md` per the frontmatter schema in [`docs/conventions.md`](docs/conventions.md).
+4. Fill in `SKILL.md` per the frontmatter schema in [`docs/contributors/conventions.md`](docs/contributors/conventions.md).
 5. Write `README.md` for humans: what it does, when to use it, what to expect.
 6. Add at least one example in `examples/` with **generic placeholders only** (`Product A`, `customer@example.com`, `ORDER-1001`, `$XX.XX`).
-7. If your skill writes, follow the safety contract in [`docs/safety.md`](docs/safety.md): preview → confirm → execute, compare-and-swap where supported, before/after log, rollback documented.
+7. If your skill writes, follow the safety contract in [`docs/contributors/safety-contract.md`](docs/contributors/safety-contract.md): preview → confirm → execute, compare-and-swap where supported, before/after log, rollback documented.
 
 ## Verifying
 
@@ -27,7 +31,7 @@ If real data appears in a tool response during verification, **redact it before 
 ## Pull request checklist
 
 - [ ] Skill ID follows `<category>.<kebab-name>` and matches folder path.
-- [ ] Frontmatter complete per `docs/conventions.md`.
+- [ ] Frontmatter complete per `docs/contributors/conventions.md`.
 - [ ] `README.md` and at least one example included.
 - [ ] All examples use generic placeholder data.
 - [ ] Read paths verified against a real store.

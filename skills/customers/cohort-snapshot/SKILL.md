@@ -36,8 +36,9 @@ Merchants ask "who are my VIPs?" or "what does my lapsed cohort look like?" — 
 
 ## Workflow
 
-1. Resolve `cohort` via `primitives/cohort-builder` (kind: customers).
-2. Read via `list-customers` paginated by `primitives/data-extraction` (cap 500).
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity, `operator.write_defaults` for confirm strictness, and `store.stage` to scale the pagination cap (500 default; 1000 on `100k-1m`/`1m+`).
+1. Resolve `cohort` via `_system/cohort-builder` (kind: customers).
+2. Read via `list-customers` paginated by `_system/data-extraction` (cap 500).
 3. Compute aggregates:
    - count
    - average `total_spent`

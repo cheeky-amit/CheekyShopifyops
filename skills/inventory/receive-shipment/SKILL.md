@@ -46,8 +46,9 @@ version: 1.0.0
 
 ## Workflow
 
-Composes with `primitives/safe-write`.
+Composes with `_system/safe-write`.
 
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity, `operator.write_defaults` for confirm strictness, and `store.stage` to scale defaults — receive-shipment is bulk-write so always confirm regardless of write_defaults.
 1. **Resolve each item** (target → product/variant, location → GID).
 2. **Read current** for each (item × location).
 3. **Propose:** for each, `proposed = current + quantity_received`, reason `received`.

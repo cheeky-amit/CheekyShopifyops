@@ -41,7 +41,8 @@ version: 1.0.0
 
 ## Workflow
 
-1. Cohort + threshold via `primitives/cohort-builder`. Add filter `inventory_total:<=<threshold>` (and `inventory_total:>0` if `include_out_of_stock` is false).
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity, `operator.write_defaults` for confirm strictness, and `store.stage` to scale defaults — for this skill, scale the default `threshold` if the merchant didn't pass one: `5` for `under-10k-mo`/`just-launched`, `10` for `10k-100k`/`100k-1m`, `25` for `1m+`.
+1. Cohort + threshold via `_system/cohort-builder`. Add filter `inventory_total:<=<threshold>` (and `inventory_total:>0` if `include_out_of_stock` is false).
 2. `search_products` → paginated read.
 3. For each, fetch recent sales:
    ```

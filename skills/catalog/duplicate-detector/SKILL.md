@@ -36,7 +36,8 @@ version: 1.0.0
 
 ## Workflow
 
-1. Read products via `primitives/data-extraction` (cap 500).
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity and `store.stage` to scale the pagination cap (500 default; up to 2000 on `1m+`).
+1. Read products via `_system/data-extraction` (cap 500).
 2. For each requested signal, build clusters:
    - **SKU**: group by SKU; clusters with size > 1 are duplicates.
    - **Barcode**: same.

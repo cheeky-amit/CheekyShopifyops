@@ -37,8 +37,9 @@ version: 1.0.0
 
 ## Workflow
 
-1. Cohort via `primitives/cohort-builder`.
-2. Read products with `primitives/data-extraction` (cap 500). For each, evaluate the requested checks. (The list response covers most fields; for `alt-text`, `get-product` is needed because it's per-image.)
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity, `operator.write_defaults` for confirm strictness, and `store.stage` to scale defaults (top-N caps, threshold sizes, etc.).
+1. Cohort via `_system/cohort-builder`.
+2. Read products with `_system/data-extraction` (cap 500; consider 1000 on `1m+` stores). For each, evaluate the requested checks. (The list response covers most fields; for `alt-text`, `get-product` is needed because it's per-image.)
 3. Group by check + rank by missing-fields-count.
 
 ## Output format

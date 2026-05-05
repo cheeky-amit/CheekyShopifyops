@@ -1,31 +1,34 @@
-# Example — CAS failure (stock changed mid-flight)
+# Example — what happens if a sale happened during your count
 
-The merchant counted 18 at 14:30. They ran the skill at 14:32. Between 14:30 and 14:32, an order placed online decremented Warehouse stock by 1.
+You counted 18 of Product A at the Warehouse at 14:30. You came back to confirm at 14:32. Between those two minutes, an online order shipped one unit out of the Warehouse. The system now shows 23, not the 24 it showed when you started.
 
 ```
-> Merchant: "I counted 18 of Product A at Warehouse."
+> You: "I counted 18 of Product A at the Warehouse."
 
-example-shop · cycle count adjustment
-
-  Product A (SKU-A) at "Warehouse"
-    24 → 18    (delta: -6)
-    reason:    cycle count — counted 18, system showed 24
+  Product A · Size M · Warehouse
+    System shows: 24
+    You counted:  18    (a difference of 6)
+    Reason:       cycle count
 
   Type "yes" to apply.
 
-> Merchant: "yes"
+> You: "yes"
 
-→ set-inventory(quantity 18, compareQuantity 24, reason 'cycle_count_available')
+  Heads up — stock changed since you counted.
+  System now shows 23, not 24. An order probably shipped between your
+  count and your confirmation.
 
-⚠ Stock changed since you counted (system now shows 23, not 24).
-  An order probably went out between your count and this confirmation.
-
-  No change applied. Two options:
+  No change applied yet. Two options:
     1) Recount and try again (safest).
-    2) Apply 18 anyway, accepting that one in-flight sale is now reflected.
-       (Treat as: floor said 18, sale removed 1 → write 17.)
+    2) Apply 17 instead of 18 — meaning "the floor showed 18, then a sale
+       removed 1, so the new on-hand is 17."
 
   What do you want to do?
 ```
 
-The skill never silently retries with the new comparison value — that defeats the protection.
+The skill never silently retries with the new starting number — that would defeat the safety check. You decide.
+
+— under the hood —
+  The write carries a safety check that says "only apply if stock is still 24."
+  When the system reports it's now 23, the write declines, and the skill walks
+  you through the choice instead of overwriting the sale.

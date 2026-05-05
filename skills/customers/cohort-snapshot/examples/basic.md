@@ -1,26 +1,30 @@
 # Example — VIP snapshot
 
 ```
-> Merchant: "Show me a snapshot of my VIPs."
+> You: "Show me a snapshot of my VIPs."
 
-example-shop · cohort: VIPs (tag:vip)
+  example-shop · group: VIPs (anyone tagged "vip")
 
-  Count:           48
-  Avg lifetime:    $462.00
-  Top countries:   US (32) · CA (9) · UK (4)
-  Subscribed:      87%
+    Count:           48
+    Avg lifetime:    $462.00
+    Top countries:   US (32) · CA (9) · UK (4)
+    Subscribed:      87%
 
-To see specific customers: ask "top spending VIPs".
-To compare with non-VIPs:  ask "snapshot of non-VIP repeat buyers".
+  Want names? Ask "top spending VIPs."
+  Want to compare? Ask "snapshot of non-VIP repeat buyers."
+
+— under the hood —
+  Resolves the group, pulls those customers a slice at a time, then shows
+  count, average spend, country split, and consent rate as one compact view.
 ```
 
-Empty case:
+When the group is empty:
 
 ```
-> Merchant: "Snapshot of lapsed VIPs."
+> You: "Snapshot of lapsed VIPs."
 
-example-shop · cohort: lapsed VIPs (tag:vip AND orders_count:>=2 AND no activity 6mo)
+  example-shop · group: lapsed VIPs (tagged vip, 2+ orders, no activity in 6 months)
 
-  Nobody fits. Either your VIPs are still active, or you don't tag VIPs yet.
-  To start tagging VIPs, add a `vip` tag to top-spending customers.
+    Nobody fits. Either your VIPs are still active, or you don't tag VIPs yet.
+    To start tagging VIPs, add a "vip" tag to top-spending customers.
 ```

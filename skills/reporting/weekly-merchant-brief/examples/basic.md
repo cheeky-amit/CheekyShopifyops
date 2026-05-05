@@ -1,52 +1,57 @@
 # Example — weekly merchant brief
 
 ```
-> Merchant: "Weekly brief."
+> You: "Weekly brief."
 
 example-shop · weekly brief · 2026-01-08 → 2026-01-15 · USD
 
 HEADLINE
   Orders:        84       (+12% vs prior 7d)
-  Total sales:   $9,820   (+8%)
-  AOV:           $117     (-3%)
+  Total sales:   $X,XXX   (+8%)
+  AOV:           $XXX     (-3%)
   Sessions:      4,210    (+22%)
   Conversion:    2.0%     (-0.4 pp)
   Returning:     34%      (+4 pp)
 
 TOP MOVERS  (top 5 by sales)
-  1.  Product A    $1,820   24 orders
-  2.  Product B    $1,210   18 orders
-  3.  Product C    $940     12 orders
-  4.  Product D    $720     8 orders
-  5.  Product E    $580     6 orders
+  1.  Product A    $X,XXX   24 orders
+  2.  Product B    $X,XXX   18 orders
+  3.  Product C    $XXX     12 orders
+  4.  Product D    $XXX     8 orders
+  5.  Product E    $XXX     6 orders
 
 UNDER-PERFORMERS  (bottom 5)
-  •  Product P    $0     0 orders    ← flag for status audit
-  •  Product Q    $0     0 orders    ← out of stock since Sep 2025
-  •  Product R    $40    1 order
-  •  Product S    $80    2 orders
-  •  Product T    $120   3 orders
+  •  Product P    $0       0 orders    ← worth a status check
+  •  Product Q    $0       0 orders    ← out of stock for months
+  •  Product R    $XX      1 order
+  •  Product S    $XX      2 orders
+  •  Product T    $XXX     3 orders
 
-LOW STOCK  (≤5, ranked by recent sales)
-  •  Product A    2    18 sold last 30d    ⚠ reorder now
-  •  Product B    4    12 sold
-  •  Product C    1    8 sold
+LOW STOCK  (≤ 5, ranked by recent sales)
+  •  Product A    2 left   18 sold last 30d   ⚠ reorder now
+  •  Product B    4 left   12 sold
+  •  Product C    1 left   8 sold
 
 STUCK ORDERS  (paid + unfulfilled > 72h)
-  ORDER-1001   92h    Customer A B.   $128.00
-  ORDER-1002   84h    Customer C D.   $54.00
-  ORDER-1003   78h    Customer E F.   $212.00
-  ORDER-1004   74h    Customer G H.   $36.00
+  ORDER-1001   92h    Customer A B.   $XXX.XX
+  ORDER-1002   84h    Customer C D.   $XX.XX
+  ORDER-1003   78h    Customer E F.   $XXX.XX
+  ORDER-1004   74h    Customer G H.   $XX.XX
 
 ANOMALIES / WATCH
-  • AOV down 3% while sessions up 22% → more browsers, smaller carts.
-    Worth checking the funnel: ask "conversion funnel last 7 days".
-  • Returning rate +4 pp — repeat-purchase engine improving.
-  • Product Q is ACTIVE but has had no stock since Sep 2025.
-    → run "audit my products" (catalog.product-status-audit).
+  • Average order value down 3% while sessions up 22% — more browsers,
+    smaller carts. Worth a look at the funnel: ask "conversion funnel
+    last 7 days."
+  • Returning rate +4 pp — repeat-purchase engine looking healthier.
+  • Product Q is showing as active but has had no stock for months.
+    Try "audit my products."
 
 THIS WEEK
   • Reorder fast movers (Products A, B, C).
   • Fulfill or follow up on the 4 stuck orders.
-  • Run product-status-audit when you have 5 minutes.
+  • Run a product status audit when you have 5 minutes.
 ```
+
+— under the hood —
+
+It runs the five underlying skills (`analytics.daily-pulse`, `analytics.product-performance`, `inventory.low-stock-alert`, `orders.fulfillment-watchlist`, `analytics.cohort-retention`) for the same window, gathers their outputs, and renders them as one digest with a "this week" tail.

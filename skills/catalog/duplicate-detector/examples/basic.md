@@ -1,48 +1,49 @@
 # Example — duplicate detection
 
 ```
-> Merchant: "Find duplicate products."
+> You: "Find duplicate products."
 
-example-shop · duplicate detection · 248 products scanned
+  example-shop · duplicate detection · 248 products scanned
 
-→ Identical SKU                                          3 clusters
+  Same SKU                                            3 clusters
 
-  SKU "SKU-A":
-    • Product A     (active,    vendor: Vendor A)
-    • Product A2    (draft,     vendor: Vendor A)        ← likely import duplicate
+    SKU "SKU-A":
+      • Product A     active,    Vendor A
+      • Product A2    draft,     Vendor A         likely import duplicate
 
-  SKU "SKU-B":
-    • Product B     (active,    vendor: Vendor A)
-    • Product B-old (archived,  vendor: Vendor A)        ← intentional? archived dup
+    SKU "SKU-B":
+      • Product B     active,    Vendor A
+      • Product B-old archived,  Vendor A         intentional? archived dup
 
-  SKU "SKU-G":
-    • Product G     (active,    vendor: Vendor B)
-    • Product G EU  (active,    vendor: Vendor B, tag: market-eu) ← likely intentional (region split)
+    SKU "SKU-G":
+      • Product G     active,    Vendor B
+      • Product G EU  active,    Vendor B  tag market-eu   likely intentional (region split)
 
+  Near-identical title                                2 clusters
 
-→ Near-identical title                                   2 clusters
+    Cluster:
+      • Product C - Black     active
+      • Product C — Black     active            em-dash vs hyphen — likely typo dup
 
-  Cluster:
-    • Product C - Black     (active)
-    • Product C — Black     (active)                     ← em-dash vs hyphen (likely typo dup)
+    Cluster:
+      • Product H             active
+      • Product H             active            same title, different products
 
-  Cluster:
-    • Product H             (active)
-    • Product H             (active)                     ← exact same title, different IDs
+  Auto-suffixed handle                                1 cluster
 
+    Pattern: product-d, product-d-1
+      • Product D     handle: product-d
+      • Product D     handle: product-d-1        import collision
 
-→ Auto-suffixed handle                                   1 cluster
+  Quick read:
+    • 4 clusters look like real duplicates.
+    • 1 cluster (SKU-G) looks intentional (region split).
+    • Em-dash vs hyphen is an easy fix.
 
-  Handle pattern: product-d, product-d-1
-    • Product D     handle: product-d
-    • Product D     handle: product-d-1                  ← import collision
-
-Quick reads:
-  • 4 clusters look like real duplicates.
-  • 1 cluster (SKU-G) looks intentional (region split — same SKU across markets).
-  • Em-dash/hyphen typos are easy fixes via update-product.
-
-Want to clean up? Either:
-  • Archive the duplicate manually: "archive Product A2"
-  • Bulk-archive by ID list: `catalog.bulk-status-sweep`
+  Want to clean up?
+    • Archive one: "archive Product A2."
+    • Bulk-archive a list: catalog.bulk-status-sweep.
 ```
+
+— under the hood —
+  Reads your catalog → normalizes titles and handles → groups on four signals (SKU, barcode, fuzzy title, handle pattern). No writes.

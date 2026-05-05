@@ -75,13 +75,17 @@ Stores accumulate product-status drift over time. Some products that should be s
 
 ## Workflow
 
-1. **Load shop context.** Call `primitives/shop-context` to resolve the connected store. Surface the store name to the merchant — every preview must say which store this is for.
+0. **Load context.** Call `_system.shop-context`. The returned object includes:
+   - `shop`, `operator`, `store`, `rituals`, `onboarding_state`.
+   - `needs_onboarding` and `onboarding_skipped` flags.
 
-2. **Build the audit cohort.**
+   If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity. This is bulk-write — the strict confirm in step 4 always applies regardless of `write_defaults`. Surface `shop.pretty` to the merchant — every preview must say which store this is for.
+
+1. **Build the audit cohort.**
    - If `cohort` input is provided, use it as the base filter for `search_products`.
    - Otherwise, audit everything (no base filter).
 
-3. **Find candidates in three buckets.** Run three `search_products` queries (paginated) over the cohort:
+2. **Find candidates in three buckets.** Run three `search_products` queries (paginated) over the cohort:
 
    - **Bucket A — `ACTIVE` with no inventory and no recent sales.**
      Filter: `status:active AND inventory_total:0`.
@@ -101,7 +105,7 @@ Stores accumulate product-status drift over time. Some products that should be s
      Filter: `status:archived`.
      For each, call `get-product` to find its collections. If any collection is published, propose `ARCHIVED → DRAFT` (the merchant can choose to fully delete or revive).
 
-4. **Compose the diff.**
+3. **Compose the diff.**
    Group results by direction. Show the merchant:
    ```
    Audit on <store-name> · cohort: <cohort or "everything">
@@ -121,20 +125,21 @@ Stores accumulate product-status drift over time. Some products that should be s
        • Product D     [ID …004]   was: ARCHIVED  (in collection: "Featured")
        …
 
-   Type "yes" to apply, "modify" to adjust, "no" to abort.
-   Dry-run is currently: <on|off>.
+   Type "yes — apply these <N>" to apply (the count is required so a casual "ok" can never trigger a bulk run).
+   Or: "modify" to adjust, "no" to abort.
+   Preview-only is currently: <on|off>.
    ```
    No raw GIDs in body unless the merchant asks for them. No real product names — the **runtime** will show real names; this skill's *examples* in this repo only ever use placeholders.
 
-5. **Confirm.** Wait for explicit confirmation. If `dry_run = true` (default), tell the merchant the dry-run is on and they need to opt out (e.g., "apply for real") to actually write.
+4. **Confirm.** Wait for explicit confirmation. If `dry_run = true` (default), tell the merchant the preview-only mode is on and they need to opt out (e.g., "apply for real") to actually write. The bulk-write confirmation must include the exact change count — accept only `yes — apply these <N>` where `<N>` matches the proposed count from step 3. A bare "yes" or "ok" is rejected; ask the merchant to repeat with the count. This applies regardless of `write_defaults`.
 
-6. **Execute.**
+5. **Execute.**
    - If `dry_run = true`, stop here. Output the run log only.
    - If `dry_run = false` and the merchant confirmed, batch product IDs by target status (`ACTIVE`, `DRAFT`, `ARCHIVED`).
    - For each batch, call `bulk-update-product-status` with up to 50 IDs.
    - Re-read each updated product (or use the tool's response) to verify the status applied.
 
-7. **Log and rollback note.** Output a structured before/after log:
+6. **Log and rollback note.** Output a structured before/after log:
    ```
    Run: catalog.product-status-audit @ <iso-timestamp>
    Store: <store>

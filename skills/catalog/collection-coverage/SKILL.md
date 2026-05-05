@@ -36,6 +36,7 @@ version: 1.0.0
 
 ## Workflow
 
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity and `store.stage` to scale pagination caps (default 500 products / 200 collections; up to 2000 / 500 on `1m+`).
 1. **Orphan products.** Read all `ACTIVE` products. For each, count its collections. Active products in 0 collections are orphans (unless the storefront uses search-only navigation).
 2. **Empty collections.** `search_collections` paginated. For each collection, check `productsCount` (via `get-collection` or via search filter `product_id`).
 3. Render two grouped lists.

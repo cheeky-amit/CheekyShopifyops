@@ -1,55 +1,53 @@
 # Example — cycle count
 
 ```
-> Merchant: "I counted 18 of Product A at the Warehouse."
+> You: "I counted 18 of Product A at the Warehouse."
 
-example-shop · cycle count adjustment
-
-  Product A (SKU-A) at "Warehouse"
-    24 → 18    (delta: -6)
-    reason:    cycle count — counted 18, system showed 24
+  Product A · Size M · Warehouse
+    System shows: 24
+    You counted:  18    (a difference of 6)
+    Reason:       cycle count
 
   Type "yes" to apply.
 
-> Merchant: "yes"
+> You: "yes"
 
-→ set-inventory(quantity 18, compareQuantity 24, reason 'cycle_count_available')
+  Done. Updated to 18 at the Warehouse.
+  If you want to undo, say "set Product A at Warehouse back to 24."
 
-Run: inventory.cycle-count @ 2026-01-15T14:32:11Z
-Store: example-shop · USD · America/Denver · Shopify plan
-Change applied: 1
-  gid://shopify/InventoryItem/000 @ Location/000   24 → 18   (cycle_count_available)
-
-Rollback: ask "set Product A at Warehouse back to 24" — the inverse call is:
-  set-inventory(quantity 24, compareQuantity 18, reason 'correction').
+— under the hood —
+  Read current stock → show the change → wait for confirmation → write the new
+  number with a safety check (so any sale that happened during your count can't
+  get silently overwritten).
 ```
 
-Variant ambiguity:
+When a product has multiple variants and you didn't say which:
 
 ```
-> Merchant: "I counted 18 of Product A."
+> You: "I counted 18 of Product A."
 
-example-shop · which variant?
-
-  Product A has multiple variants:
+  Product A has multiple variants. Which one did you count?
     • Size S    (currently 12)
     • Size M    (currently 4)
     • Size L    (currently 0)
 
-  Which one did you count? You can also specify the location if more than one carries it.
+  And if more than one location carries it, mention the location too.
 ```
 
-Suggested reason flip:
+When the difference is large and negative:
 
 ```
-> Merchant: "I counted 12 of Product B at Warehouse" (system shows 24)
+> You: "I counted 12 of Product B at Warehouse" (system shows 24)
 
-  Product B at "Warehouse"
-    24 → 12    (delta: -12)
-    reason:    cycle count — counted 12, system showed 24
+  Product B · Warehouse
+    System shows: 24
+    You counted:  12    (a difference of 12)
+    Reason:       cycle count
 
-  That's a -12 delta. If the cause is theft, damage, or loss rather than a counting
-  mistake, "shrinkage" is a more honest reason. Want to switch?
+  That's a -12 difference. If the cause is theft, damage, or loss rather
+  than a counting mistake, "shrinkage" is a more honest reason.
+
+  Want to switch?
     • "yes, mark as shrinkage"
-    • "no, keep cycle_count_available"
+    • "no, keep it as cycle count"
 ```

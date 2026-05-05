@@ -32,7 +32,8 @@ version: 1.0.0
 
 ## Workflow
 
-1. `get-shop-info` for profile.
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity. shop-context already returns the basic profile, so step 1 below uses that instead of a fresh `get-shop-info` call.
+1. Use `shop` from context for profile (skip the redundant `get-shop-info` call).
 2. `search_products` with `first: 1` to read `pageInfo` (no — Shopify doesn't return total count via this; instead use `run-analytics-query`):
    ```
    FROM products SHOW count

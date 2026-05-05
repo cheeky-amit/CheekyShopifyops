@@ -1,38 +1,40 @@
 # Example — low stock alert
 
 ```
-> Merchant: "What's running low?"
+> You: "What's running low?"
 
-example-shop · low stock alert · threshold ≤5 (excluding out-of-stock)
+  example-shop · low stock · 5 or fewer in stock (zero excluded)
 
    Product       Stock   30d sales   Note
    ─────────────────────────────────────────────────────
-   Product A        2          18    ⚠ fast mover, reorder now
+   Product A        2          18    fast mover — reorder now
    Product B        4          12    reorder soon
    Product C        1           8
    Product D        3           4
    Product E        5           1    slow — fine to wait
 
-5 products at or below threshold.
-Want to bring in stock? Use inventory.receive-shipment after the PO arrives.
+  5 products at or below 5.
+  When the delivery lands, use "inventory.receive-shipment" to add it.
 ```
 
-Cohort + custom threshold:
+A custom threshold and a group:
 
 ```
-> Merchant: "Anything in vendor:Vendor A under 10?"
+> You: "Anything from Vendor A under 10?"
 
-example-shop · low stock alert · threshold ≤10 · cohort: vendor:Vendor A
+  example-shop · low stock · 10 or fewer · Vendor A
 
    Product       Stock   30d sales   Note
    ─────────────────────────────────────────────────────
-   Product A        2          18    ⚠ fast mover
-   Product F        7          22    ⚠ fast mover, watch
+   Product A        2          18    fast mover
+   Product F        7          22    fast mover — watch closely
    Product B        4          12
    Product J        9           6
    Product G        8           1    slow
 
-Want to plan a reorder list to send your Vendor A contact?
-You can copy this list — but the actual PO send needs your supplier
-workflow (out of MCP scope).
+  Want a reorder list for Vendor A? Copy this list — sending the actual
+  purchase order needs your supplier workflow (out of scope here).
 ```
+
+— under the hood —
+  Read current stock and recent 30-day sales → filter to threshold → sort by velocity. No writes.

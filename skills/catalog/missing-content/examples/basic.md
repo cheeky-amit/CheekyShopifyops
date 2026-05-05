@@ -1,9 +1,9 @@
 # Example — missing content audit
 
 ```
-> Merchant: "Audit my product content."
+> You: "Audit my product content."
 
-example-shop · missing content audit · 248 products scanned
+  example-shop · missing content · 248 products scanned
 
   Missing description:    14
   Missing image:           3
@@ -12,19 +12,21 @@ example-shop · missing content audit · 248 products scanned
   Missing product type:   71
   Missing tags:           19
 
-Worst offenders (missing most fields):
-  • Product A   missing: description, image, vendor, type
-  • Product B   missing: description, alt text, type
-  • Product C   missing: image, alt text, type
-  • Product D   missing: vendor, type, tags
-  • Product E   missing: description, type
-  …
+  Worst offenders (most fields missing):
+    • Product A    missing description, image, vendor, type
+    • Product B    missing description, alt text, type
+    • Product C    missing image, alt text, type
+    • Product D    missing vendor, type, tags
+    • Product E    missing description, type
 
-Quick wins:
-  • 3 products have no image — these will look broken on storefront. Prioritize.
-  • 71 products have no type — limits how customers can filter your catalog.
-  • 14 products have no description — hurts SEO and conversion.
+  Quick wins:
+    • 3 products have no image — these look broken on the storefront. Fix first.
+    • 71 products have no type — limits how customers filter your catalog.
+    • 14 products have no description — hurts SEO and conversion.
 
-Want to fix one? Ask "fix content on Product A" (uses update-product).
-Want bulk auto-suggest? Not in v1 — content writes need careful review.
+  Want to fix one? Ask, e.g., "fix content on Product A".
+  Bulk auto-suggest isn't in this version — content writes need careful review.
 ```
+
+— under the hood —
+  Reads each product's fields (title, description, images, alt text, vendor, type, tags) and groups the gaps. No writes.

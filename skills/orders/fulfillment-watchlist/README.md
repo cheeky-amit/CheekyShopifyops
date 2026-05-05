@@ -1,25 +1,43 @@
 # Stuck unfulfilled orders
 
-Find paid orders that haven't shipped yet, oldest first.
+Find paid orders that haven't shipped yet — oldest first — so the ones aging in your queue can't hide.
+
+## What you can say
 
 > "Show stuck orders."
 > "What hasn't shipped?"
 > "Anything in the fulfillment queue that needs attention?"
 
-## What it returns
+## What you'll see back
 
 Three groups:
-- **Stale** — paid + unfulfilled + older than 72h (configurable).
-- **Today** — paid + unfulfilled + within 72h.
-- **Partial** — partially fulfilled (optional).
 
-Each row shows order name, age, customer (first name + last initial), total, and line count.
+- **Stale** — paid, unfulfilled, older than 72 hours. These are the ones to fix today.
+- **Today** — paid, unfulfilled, less than 72 hours old. Normal flow, just shown for context.
+- **Partial** — orders where some items shipped but not all.
+
+Each row shows the order number, how old it is, the customer (first name + last initial only), the total, and the line count. If nothing is stuck, you'll see "Nothing stuck. 🎉"
+
+## What it won't do
+
+- Won't fulfill or ship orders. There's no direct fulfillment action in this skill — that lives in your Shopify admin (or a separate, deliberate workflow).
+- Won't refund or cancel orders — refunds are blocked at Shopify; do those in your admin.
+- Won't change anything — this is a read-only watchlist.
 
 ## Privacy note
 
-Customer names are abbreviated in this summary view (first name + last initial). Ask "show ORDER-1001" to see a specific order's full details.
+In list views, customer names are shown abbreviated to first name + last initial — e.g., "Customer A B." for "Alex Brown." That keeps the list scannable and respects your customers' privacy. To see one specific order in full, ask for it by number — for example, "show ORDER-1001."
 
-## What this skill won't do
+## Settings you can change
 
-- Fulfill orders (no direct fulfillment tool; would need GraphQL `fulfillmentCreate`, which is a separate, careful workflow).
-- Refund orders — refunds are blocked at the MCP level. Do those in Shopify admin.
+- **Stale threshold** (default: 72 hours). Anything paid-and-unfulfilled past this age shows up in the stale group.
+- **Include partial** (default: on). Toggle off if you don't want partial-fulfillment orders in the list.
+
+## Want to see under the hood
+
+It reads orders in those three buckets, sorts each by age, and abbreviates customer names for the summary view.
+
+## Related
+
+- [`orders.daily-pulse`](../daily-pulse/) — quick read on today's sales.
+- [`orders.search`](../search/) — find a specific order.

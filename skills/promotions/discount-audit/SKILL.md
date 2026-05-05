@@ -32,7 +32,8 @@ version: 1.0.0
 
 ## Workflow
 
-1. There is no direct tool for listing discount nodes. Use `primitives/graphql-helper` (kind: query) on `discountNodes`.
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity.
+1. There is no direct tool for listing discount nodes. Use `_system/graphql-helper` (kind: query) on `discountNodes`.
 2. Query (validate first):
    ```
    query DiscountList($after: String) {

@@ -56,6 +56,7 @@ version: 1.0.0
 
 This is a friendlier wrapper around `promotions.discount-create`, scoped to collections, with a sanity-check on revenue at risk.
 
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity; collection-sale always confirms regardless of `write_defaults` because it's irreversible.
 1. Resolve `collection` to GID. If multiple matches, ask. If 0 matches, suggest closest.
 2. Read collection: count of products, recent sales (`run-analytics-query` `FROM sales SHOW total_sales WHERE collection_id = '<gid>' SINCE -30d`).
 3. Validate dates (`starts_at` < `ends_at`; both ≥ now or warn).

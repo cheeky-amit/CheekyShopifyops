@@ -41,7 +41,9 @@ A composite skill: it doesn't introduce new MCP calls but orchestrates several p
 
 ## Workflow
 
-This skill composes:
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity. Use `rituals.monday_brief` and `rituals.weekly_brief_day` to decide whether to greet with "your weekly brief" framing. Use `store.stage` to scale: top/bottom-N defaults to 5 (consider 10 on `1m+`); low-stock threshold defaults via the inventory skill (5 / 10 / 25 by stage).
+
+1. Compose:
 
 - `analytics.daily-pulse` (range = week) — sales + sessions + conversion + comparison.
 - `analytics.product-performance` (top 5 by gross sales, bottom 5 by gross sales).
@@ -49,7 +51,7 @@ This skill composes:
 - `orders.fulfillment-watchlist` (paid + unfulfilled, ranked by age).
 - `analytics.cohort-retention` (returning rate, just the headline).
 
-Then renders one combined view, no widgets duplicated.
+Then render one combined view, no widgets duplicated.
 
 ## Output format
 

@@ -1,24 +1,32 @@
-# Audit and consolidate product tags
+# Clean up product tags
 
-Find tag taxonomy issues and propose consolidations. Cleans up case-duplicates ("Sale" vs "sale"), near-duplicates ("Tshirt" vs "T-shirt"), and surfaces single-use tags for review.
+Find tag mess — same tag spelled different ways ("Sale" vs "sale"), near-duplicates ("Tshirt" vs "T-shirt"), single-use oddballs — and consolidate them across your products.
 
-> "Tag cleanup."
+## What you can say
+
 > "Audit my tags."
+> "Tag cleanup."
 > "Fix tag typos."
 
-## What it does
+## What you'll see back
 
-1. Builds a tag histogram from your products.
-2. Clusters tags by case-equality and near-similarity.
-3. Surfaces single-use tags separately (review only, never auto-changed — many are intentional per-launch tags).
-4. You confirm.
-5. Updates each affected product to the consolidated tag list.
+You'll get clusters: case-only duplicates ("Sale", "sale", "SALE"), near-duplicates ("Tshirt", "T-shirt", "tshirts"), and single-use tags surfaced for review only. Each cluster proposes a single "winner" tag and shows how many products will change. You confirm the whole proposal before anything is written.
 
-## Smart-collection awareness
+## When it will ask before doing anything
 
-If a tag in a cluster is used as a rule on an active smart collection, renaming it would break the collection. The skill warns and either skips the cluster or asks you to update the rule first.
+You always see the full proposal first — every cluster, every count, every product affected. Bulk tag changes need an explicit confirmation that includes the count: e.g., "yes — apply these 4 clusters (56 products)." A bare "yes" is rejected on purpose, because muscle-memory shouldn't rename tags across dozens of products. If a tag in a cluster is part of a smart collection's auto-rule (so renaming it would silently break that collection), the skill skips that cluster and tells you which collection to fix first.
 
-## What this skill won't do
+## What it won't do
 
-- Auto-fix single-use typos. Too many false positives (intentional rare tags). Fix manually.
-- Update smart-collection rules. Out of scope; the skill flags affected collections so you can fix them in Shopify admin.
+- Won't auto-fix single-use typos — too many false positives. Single-use tags are surfaced for your review only.
+- Won't change collection rules. If a tag is part of a smart-collection rule, the skill flags it so you can update the rule in your Shopify admin first.
+- Won't change anything else on the products — only their tag list.
+
+## Want to see under the hood
+
+It builds a histogram of every tag in your store, clusters them by case-equivalence and near-similarity, and updates each affected product's tag list in one pass after you confirm. The run log lists every product's previous tag list, so undo is a single ask.
+
+## Related
+
+- [`catalog.missing-content`](../missing-content/) — products with no tags at all.
+- [`catalog.collection-coverage`](../collection-coverage/) — collections affected by tag changes.

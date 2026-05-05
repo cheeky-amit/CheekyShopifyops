@@ -52,8 +52,9 @@ Catch orders that are slipping through the cracks. The merchant doesn't want a C
 
 ## Workflow
 
-1. Compose cohort via `primitives/cohort-builder` with named cohort `at-risk-stuck` (= `fulfillment_status:unfulfilled AND created_at:<'<stale_after_hours-ago>'`) plus `paid-unfulfilled` for the today bucket. If `include_partial`, also pull `fulfillment_status:partial`.
-2. Read each cohort via `list-orders` with `query` filter, paginated via `primitives/data-extraction` (cap 100 — beyond that, the merchant should triage by date).
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity, `operator.write_defaults` for confirm strictness, and `store.stage` to scale defaults — for `100k-1m`/`1m+` consider lowering the default `stale_after_hours` to 48 (higher volume = tighter SLA).
+1. Compose cohort via `_system/cohort-builder` with named cohort `at-risk-stuck` (= `fulfillment_status:unfulfilled AND created_at:<'<stale_after_hours-ago>'`) plus `paid-unfulfilled` for the today bucket. If `include_partial`, also pull `fulfillment_status:partial`.
+2. Read each cohort via `list-orders` with `query` filter, paginated via `_system/data-extraction` (cap 100 — beyond that, the merchant should triage by date).
 3. For each order, compute age in hours.
 4. Sort by age desc within each bucket.
 5. Render grouped list. Strip customer last name to first initial for display ("Customer A B." not full surname) — privacy-respectful summary; merchant can ask for one specific order's details.

@@ -48,9 +48,10 @@ version: 1.0.0
 
 ## Workflow
 
-Composes with `primitives/safe-write`.
+Composes with `_system/safe-write`.
 
-1. **Read tag distribution.** Read products in cohort via `primitives/data-extraction`. Build histogram of tags.
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity. This is a write skill; the per-cluster confirm in step 4 always applies regardless of `write_defaults` because it's bulk-affecting.
+1. **Read tag distribution.** Read products in cohort via `_system/data-extraction`. Build histogram of tags.
 2. **Cluster by signal.**
    - **case-duplicate**: `Sale`, `sale`, `SALE` → cluster, target = lowercase canonical.
    - **near-duplicate**: trigram or Levenshtein similarity above threshold (`Tshirt`, `T-shirt`, `tshirts`) → cluster, target = most-used spelling.
@@ -75,10 +76,12 @@ Composes with `primitives/safe-write`.
      "limited-edition-2024-spring" (1)   ← intentional?
      ...
 
-   Type "yes" to apply the case-duplicate and near-duplicate consolidations.
+   Type "yes — apply these <C> clusters (<P> products)" to apply the case-duplicate
+   and near-duplicate consolidations. The count is required so a bare "yes" can't
+   accidentally rename tags across dozens of products.
    Single-use tags are NOT auto-changed — review and fix individually if you want.
    ```
-5. **Confirm + execute.** For each affected product, `update-product` with the consolidated tag list. Cap at 200 products per run; surface partial completion if cohort exceeds.
+5. **Confirm + execute.** Wait for the count-inclusive confirmation — accept only `yes — apply these <C> clusters (<P> products)` where `<C>` matches the cluster count and `<P>` matches the affected-product count from step 4. A bare "yes" is rejected; ask the merchant to repeat with the counts. This applies regardless of `write_defaults`. For each affected product, `update-product` with the consolidated tag list. Cap at 200 products per run; surface partial completion if cohort exceeds.
 6. **Log.** Per product: previous tag list → new tag list. Inverse op is the previous tag list.
 
 ## Safety
