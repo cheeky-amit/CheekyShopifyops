@@ -28,9 +28,9 @@ Run "set me up" — or just ask anything; the first ask will trigger setup. Take
 
 **Retention** — find people worth bringing back. Try "build a win-back list," "who's near their first-order anniversary?"
 
-**Storefront** — store-level checks. Try "shop snapshot," "show me theme previews from a description."
+**Storefront** — store-level checks and storefront previews for new ideas. Try "shop snapshot," "what plan am I on?" "show me theme previews for a coffee shop."
 
-**Reporting** — one read at the start of the week. Try "weekly brief."
+**Reporting** — composite reads that pull several skills together into one digest. Try "weekly brief," "Monday brief," "what happened last week?"
 
 ## What stays safe
 
@@ -51,9 +51,13 @@ Full list: [docs/what-this-cant-do.md](docs/what-this-cant-do.md). To combine th
 
 ## When it gets stuck
 
-- Tell it more specifically (vendor, date range, customer name).
-- Ask it to narrow the search.
+- Tell it more specifically — a vendor, a date range, a customer name.
+- Ask it to narrow the search if it returned too many results.
+- If it returned the wrong product, paste the SKU or product name verbatim.
+- If it can't find an order, paste the order number (e.g. `1001`) or the customer email.
 - If you have multiple stores, say "switch shop" and pick one.
+
+For real day-in-the-life flows that chain several skills together, see [examples/](examples/).
 
 ## Want to add a skill or change one?
 

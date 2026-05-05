@@ -12,6 +12,8 @@ Thanks for considering a contribution. This repo is a library of Claude Skills f
 
 Read the [working contract](docs/contributors/working-contract.md) first — it covers hard rules (strict MCP scope, no real data, preview → confirm → execute, etc.) that every skill must follow.
 
+> **Note:** `/CLAUDE.md` at the repo root is now the merchant-facing operator's manual. Don't add engineering content there — engineering rules live in [`docs/contributors/working-contract.md`](docs/contributors/working-contract.md). If you need to update merchant-visible front-door copy, read both files first to keep voice consistent.
+
 1. Pick a category (`catalog`, `inventory`, `orders`, `customers`, `promotions`, `analytics`, `retention`, `storefront`, `reporting`, or propose a new one in your PR).
 2. Copy an existing skill folder as a starting point.
 3. Choose an ID: `<category>.<kebab-name>` — e.g., `inventory.cycle-count`. Folder path mirrors the ID's kebab portion.
