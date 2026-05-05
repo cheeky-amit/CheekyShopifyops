@@ -1,22 +1,42 @@
-# Build a win-back list
+# Lapsed customers worth winning back
 
-Lapsed customers worth re-engaging — defined as: ≥ N past orders, no activity for ≥ M months, subscribed to email.
+Pull a list of past buyers who've gone quiet — people who used to come back, haven't in a while, and are still on your email list — so you have somewhere to start when you want to re-engage.
 
-> "Win-back list."
+## What you can say
+
+> "Build a win-back list."
 > "Lapsed customers."
-> "Build a re-engagement list."
+> "Who used to buy and stopped?"
 
-## Why these defaults
+## What you'll see back
 
-- **6 months lapsed** — recent enough that the brand is still familiar, old enough to count as "we lost them."
-- **≥ 2 past orders** — filters one-time buyers, who are a different problem (acquisition cost, not retention).
-- **Subscribed only** — you can email them legally. The skill flags if you turn this off.
+A short summary of the group (how many people, their average lifetime spend, average past order count, average lapse time) followed by the top spenders in the group, ranked by lifetime value. Each row shows the customer (first name + last initial only), what they've spent total, how many orders, and when they last bought. Default view: top 30 by spend.
 
-## What this skill won't do
+## What it won't do
 
-- Send the email/SMS. No email MCP in this bundle. See `meta.wiring`.
-- Apply discount codes to the list. Use `promotions.discount-create` with `customer_segments` if you need a list-scoped discount.
+- Won't email anyone. There's no email tool in this bundle — this skill builds the list, you (or a separate email tool) send.
+- Won't apply a discount automatically. If you want a discount code scoped to this group, ask to create one and reference the win-back segment.
+- Won't include people who never opted into marketing. Subscribed customers only by default — you can change that, but the skill flags it.
+- Won't change anything — read-only.
 
-## Privacy
+## Settings you can change
 
-Default view abbreviates names. Full names + emails only when you explicitly ask for the export view.
+- **Lapse threshold** (default: 6 months). Recent enough that the brand is still familiar, old enough to count as gone.
+- **Past orders minimum** (default: 2). Filters one-time buyers — they're a different problem than retention.
+- **Subscribed only** (default: on). Off pulls everyone, but the skill warns you about emailing non-subscribers.
+
+## Privacy note
+
+Customer names are abbreviated to first name + last initial in this list view (so "Customer A B." stands for "Customer A B[last name]"). To see one specific person in full (full name, email), ask for them by name or position — for example, "show #1." Email addresses are never shown in the summary view.
+
+## Want to see under the hood
+
+It picks customers whose last order is older than the lapse threshold, who have at least the minimum past orders, and who are subscribed to email; it ranks them by lifetime spend; and it abbreviates names for the summary view.
+
+## Related
+
+- [`customers.high-value-list`](../../customers/high-value-list/) — top spenders, no lapse filter.
+- [`customers.subscriber-audit`](../../customers/subscriber-audit/) — who's on your list at all.
+- [`retention.first-order-anniversary`](../first-order-anniversary/) — customers approaching their one-year mark.
+- [`promotions.discount-create`](../../promotions/discount-create/) — make a discount code scoped to this group.
+- [`meta.wiring`](../../meta/wiring/) — how to add an email tool alongside this bundle.

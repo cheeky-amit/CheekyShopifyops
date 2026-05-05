@@ -1,7 +1,7 @@
 # Example — shop snapshot
 
 ```
-> Merchant: "Shop snapshot."
+> You: "Shop snapshot."
 
 example-shop
 
@@ -12,12 +12,16 @@ example-shop
   Country:       United States
 
   Catalog:       248 products · 18 collections
-  Last 7 days:   84 orders · $9,820 sales
+  Last 7 days:   84 orders · $X,XXX sales
 
-What now?
-  • Today's pulse:        "pulse"
-  • Stuck orders:         "stuck"
-  • Top sellers:          "top products"
-  • Inventory check:      "low stock"
-  • Customer cohorts:     "snapshot of VIPs"
+What you can do next:
+  • Today's sales:        "pulse"
+  • Stuck orders:          "what hasn't shipped?"
+  • Top sellers:           "top products"
+  • What's running low:    "low stock"
+  • Customer cohorts:      "show me my VIPs"
 ```
+
+— under the hood —
+
+It reads the shop profile (domain, plan, currency, timezone, country), counts products and collections, and totals orders and sales for the last 7 days.

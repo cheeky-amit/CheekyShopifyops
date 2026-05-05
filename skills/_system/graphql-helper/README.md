@@ -1,21 +1,22 @@
 # graphql-helper
 
-**Internal building block.** Skill authors use this so they don't have to re-implement the schema → docs → validate → execute chain every time.
+**Internal building block.** Not invoked directly by merchants. Used by other skills.
 
-The repo's hard rule: **no `graphql_query` / `graphql_mutation` call may skip validation**. This primitive enforces that.
+Wraps the schema → docs → validate → execute chain so no skill has to re-implement it. Enforces the repo's hard rule: no `graphql_query` or `graphql_mutation` call may skip validation.
 
 ## Used by
 
-Any domain skill that needs to access a Shopify resource not covered by a direct tool — metafields, metaobjects, pages, blogs, markets, publications, translations, discount nodes (for `promotions.discount-audit`), customer marketing consent, etc.
+Any domain skill that needs to reach a Shopify resource without a dedicated MCP tool — metafields, metaobjects, pages, blogs, markets, publications, translations, discount nodes, customer marketing consent, and similar.
 
 ## What it does
 
-```
-schema lookup → docs lookup (if needed) → validate → execute
-```
+- Looks up the relevant schema fragment.
+- Pulls related docs chunks if the operation needs context.
+- Validates the operation before any execute.
+- Returns validation errors to the caller and refuses to execute if validation fails.
+- Surfaces blocked-mutation errors (refunds, gift card writes, staff management, theme deletion / publishing, writes to the live theme) so the caller can route the merchant to the Shopify admin UI instead.
 
-If validation fails, the skill returns the validation errors to the caller and refuses to execute. Callers fix the operation and call again.
+## See also
 
-## Blocked operations
-
-The MCP refuses some mutations: refunds, gift card writes, staff management, theme deletion, theme publishing, and writes to the live (MAIN) theme. This primitive surfaces the block error and the caller surfaces it to the merchant — pointing to the Shopify admin path instead.
+- [SKILL.md](SKILL.md) — full agent-facing instructions and the validation contract.
+- [`_system/safe-write`](../safe-write/) — the write-side scaffolding most mutation callers compose with.

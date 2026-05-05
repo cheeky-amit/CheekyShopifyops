@@ -1,24 +1,29 @@
 # Example — first-order anniversary
 
 ```
-> Merchant: "Who's coming up on their one-year with us?"
+> You: "Who's coming up on their one-year with us?"
 
-example-shop · first-order anniversary cohort · 1y ± 14d, subscribed only
+example-shop · first-order anniversary · 1 year ± 14 days · subscribed only
 
-Count:  24
-Window: first order between 2025-01-01 and 2025-01-29
+How many:  24 customers
+Window:    first orders between 2025-01-01 and 2025-01-29
 
-  •  Customer A B.   first order 2025-01-15   $84.00     1 order
-  •  Customer C D.   first order 2025-01-09   $128.00    2 orders
-  •  Customer E F.   first order 2025-01-22   $54.00     1 order
-  •  Customer G H.   first order 2025-01-28   $212.00    3 orders
-  •  Customer I J.   first order 2025-01-03   $36.00     1 order
-  •  Customer K L.   first order 2025-01-19   $94.00     2 orders
+  •  Customer A B.   first order 2025-01-15   $XX.XX     1 order
+  •  Customer C D.   first order 2025-01-09   $XXX.XX    2 orders
+  •  Customer E F.   first order 2025-01-22   $XX.XX     1 order
+  •  Customer G H.   first order 2025-01-28   $XXX.XX    3 orders
+  •  Customer I J.   first order 2025-01-03   $XX.XX     1 order
+  •  Customer K L.   first order 2025-01-19   $XX.XX     2 orders
   …  (18 more)
 
-What now:
-  • Send an anniversary email — needs an email MCP (not in this bundle).
-    See meta.wiring for adding Klaviyo / Mailchimp / etc.
-  • Create an anniversary discount: "create discount THANKYOU15 15% off
-    minimum $50 customers in segment 'one-year-anniversary'".
+What you can do next:
+  • Send a thank-you email — needs an email tool, which isn't in this
+    bundle. See meta.wiring for adding one alongside.
+  • Create an anniversary discount: "create a 15% code for this group,
+    minimum $50."
+  • See one of these people in full (name + email): "show #1".
 ```
+
+— under the hood —
+
+It looks up each customer's first-ever order, keeps those whose first order falls inside the 1-year-±14-day window from today, filters to subscribed customers, and abbreviates names for the summary view.

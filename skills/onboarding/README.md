@@ -1,8 +1,7 @@
 # Onboarding skills
 
-First-run setup, profile refresh, and a guided tour. Lands here in Task 2 of the merchant-first redesign.
+First-run setup, profile updates, and a guided tour. These run before (or alongside) the rest of the bundle and shape how the other skills talk to you.
 
-When complete, this folder will contain:
-- `first-run/` — auto-triggers on first connection; learns the operator and the store, saves the profile to Shopify metafields under `merchant_ai.*`.
-- `refresh-profile/` — update profile fields after onboarding.
-- `tour/` — read-only "what can you do?" walkthrough without saving anything.
+- [`first-run/`](first-run/) — one-time setup: learns who's running the store and how you want Claude to behave, then saves a small profile to your store. Auto-runs the first time you ask Claude to do anything; you can also type "skip" and we'll use safe defaults.
+- [`refresh-profile/`](refresh-profile/) — update the profile later. Use when a new operator takes over, the store changes stage, or you want different confirmation prompts. Also handles "forget my profile."
+- [`tour/`](tour/) — read-only walkthrough of what Claude can do on your store. No questions, no writes. Run any time you want a quick reminder of what's available.
