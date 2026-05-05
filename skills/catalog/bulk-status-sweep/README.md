@@ -1,25 +1,43 @@
-# Bulk-archive (or activate) by cohort
+# Bulk archive (or activate) a group of products
 
-When you already know which products should change status — by cohort or collection — this skill applies the change to up to 50 products at once.
+When you already know which products should change status — by vendor, tag, or collection — sweep them all to the same status in one safe pass.
+
+## What you can say
 
 > "Archive all out-of-stock products from Vendor A."
 > "Set the Spring 2025 collection to draft."
 > "Bulk-archive everything tagged 'discontinued'."
 
-## Why a hard 50 cap
+## What you'll see back
 
-`bulk-update-product-status` caps at 50 per call. This skill does NOT paginate past that. Bigger sweeps require multiple runs with narrower cohorts. The intent is to keep blast radius small — a sweep that changes 500 products with one "yes" is too easy to regret.
+A numbered list of every product that matches your group, with the count, the current state, and the target state. You'll see how many already have the target status (skipped) and how many will actually change.
 
-## Confirmation strictness
+## When it will ask before doing anything
 
-For bulk writes, the skill requires unambiguous confirmation: the merchant must echo the count and direction (e.g., "yes — archive these 28"). "ok" alone is not enough.
+This is a bulk write. Confirmation has to be explicit and include the count: "yes — archive these 28." A simple "yes" or "ok" is rejected on purpose, because muscle-memory shouldn't change 28 products. If your group is bigger than 50, the skill stops, tells you, and asks how to slice it (run in passes, or narrow further).
 
-## Difference from `product-status-audit`
+## What it won't do
 
-- `product-status-audit` finds drift across multiple directions (archive some, activate some, draft some) and proposes per-product fixes.
-- `bulk-status-sweep` applies a single target status to a cohort the merchant already chose.
+- Won't process more than 50 products per run. The 50-cap is a safety belt: bigger sweeps need to run again with a narrower group, so the blast radius of one "yes" stays small.
+- Won't delete products. Status changes only.
+- Won't change titles, descriptions, prices, or tags — only status.
 
-## Sister skills
+## Settings you can change
 
-- `catalog.product-status-audit` — multi-direction status fixes.
-- `catalog.tag-cleanup` — for tag changes, not status.
+- **Group of products** (required). Vendor, tag, collection, status, stock — any combination.
+- **Target status** (required). Active, draft, or archived.
+
+## Want to see under the hood
+
+It searches your catalog with the group you specified, lists every match, asks for explicit confirmation including the count, re-checks each product right before writing (so any drift since the preview is caught), and writes status changes in one batched call. The run log includes the inverse so undo is one ask.
+
+## How this is different from product-status-audit
+
+- [`catalog.product-status-audit`](../product-status-audit/) finds problems across multiple directions (some to archive, some to activate, some to draft) and proposes per-product fixes.
+- This skill applies a single target status to a group you already chose.
+
+## Related
+
+- [`catalog.product-status-audit`](../product-status-audit/) — multi-direction status fixes.
+- [`catalog.duplicate-detector`](../duplicate-detector/) — find the duplicates first.
+- [`catalog.tag-cleanup`](../tag-cleanup/) — for tag changes, not status.

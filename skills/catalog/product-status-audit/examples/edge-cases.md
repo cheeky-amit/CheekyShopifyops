@@ -1,87 +1,89 @@
 # Example — edge cases
 
-All names, IDs, prices, and dates below are placeholders.
+All names, IDs, and dates are placeholders.
 
-## Untracked inventory product
+## Inventory tracking turned off
 
-A product with `inventoryItem.tracked: false` always reports `inventory_total: 0` even when the merchant considers it "in stock" (a common pattern for digital downloads or made-to-order items). The audit must not flag these.
-
-```
-Audit on example-shop.myshopify.com · 248 products scanned
-
-Proposed: 9 changes
-  → ARCHIVE   9 items   (details above)
-
-Excluded from archive bucket:
-  • Product P  — inventory tracking is OFF; status not flagged.
-  • Product Q  — inventory tracking is OFF; status not flagged.
-
-If you want these audited too, turn on inventory tracking first or
-ask me to "audit including untracked products" (treats inventory-off
-as in-stock).
-```
-
-## Pagination cap reached
-
-The skill caps total candidates at 500 per run. If buckets exceed that, the merchant sees:
+Some products (digital downloads, made-to-order) intentionally have stock tracking off. They always read as "0 in stock" even when you treat them as available. The audit never flags these.
 
 ```
-Audit on example-shop.myshopify.com — partial result
+> You: "Audit my products."
 
-I found more than 500 candidate products, which is more than I'll process in
-a single run to keep the diff readable.
+  248 products scanned. Proposed: 9 changes.
 
-I scanned: 500 / ~860 candidates.
+  Archive  9 items (details above)
 
-Two ways forward:
-  1) Narrow the cohort, e.g. "audit vendor:Vendor A" or "audit tag:summer-sale".
-  2) Run the audit per-vendor: I can list your vendors and we'll do them one at a time.
+  Excluded from the archive list:
+    • Product P    inventory tracking is OFF — not flagged.
+    • Product Q    inventory tracking is OFF — not flagged.
 
-Which would you like?
+  If you want these audited too, turn tracking on first, or say
+  "audit including untracked products" (treats tracking-off as in-stock).
 ```
 
-## Sales lookup failed for one product
+## Too many products in one run
+
+A single run looks at up to 500 candidates so the change list stays readable.
 
 ```
-Re-checking sales for archive candidates…
-  ⚠  Could not get sales data for Product R (gid://shopify/Product/000) — skipped.
+> You: "Audit my products."
 
-Final archive bucket: 9 products (1 excluded due to lookup failure).
+  Partial result. I found more than 500 candidates, which is more than I'll
+  process in one go.
+
+  Scanned: 500 of about 860 candidates.
+
+  Two ways forward:
+    1) Narrow the group, e.g. "audit Vendor A" or "audit tag:summer-sale".
+    2) Run per-vendor: I can list your vendors and we'll do them one at a time.
+
+  Which would you like?
 ```
 
-The excluded product is reported but never assumed to have zero sales. Better to skip than to wrongly archive.
-
-## Mid-flight drift — someone else changed a status between preview and execute
+## A sales lookup didn't come back
 
 ```
-Re-checking 14 candidates for drift…
-  ⚠  Product C (gid://shopify/Product/002) is now ARCHIVED already.   Skipping.
-  ⚠  Product K (gid://shopify/Product/010) is now ACTIVE already.     Skipping.
+  Re-checking sales for archive candidates…
+    Could not get sales data for Product R — skipping it from this run.
 
-Applying remaining 12:
-  Batch 1/3: 9 products  → ARCHIVED   ✓
-  Batch 2/3: 2 products  → ACTIVE     ✓
-  Batch 3/3: 1 product   → DRAFT      ✓
+  Final archive list: 9 products (1 skipped because the sales lookup failed).
 ```
 
-## Rollback after a partial-failure run
+We'd rather skip a product than wrongly archive it.
+
+## Someone changed a product's status during the preview
+
+Between when you saw the preview and when you confirmed, another teammate (or a separate workflow) changed two of the products. The skill notices and skips just those two.
 
 ```
-Run: catalog.product-status-audit @ 2026-01-15T14:32:11Z
-Store: example-shop.myshopify.com
-Changes applied: 9 of 14 attempted
+  Re-checking 14 candidates…
+    Product C is already archived now — skipping.
+    Product K is already active now — skipping.
 
-Failed batches:
-  Batch 2/3: 3 products → ACTIVE — failed (auth error). 0 of 3 applied.
-  Batch 3/3: 1 product  → DRAFT  — not attempted (aborted on previous failure).
-
-Successful changes:
-  gid://shopify/Product/000  ACTIVE → ARCHIVED
-  gid://shopify/Product/001  ACTIVE → ARCHIVED
-  …  (9 total)
-
-To roll back what did apply, ask: "undo the last status audit".
-The skill will set those 9 products back to ACTIVE.
+  Applying remaining 12:
+     9 products → archived  ✓
+     2 products → active    ✓
+     1 product  → draft     ✓
 ```
 
-The rollback only inverts what actually applied — never invents writes for batches that didn't run.
+## Undo after a partial run
+
+If a batch failed partway through, undo only reverses what actually applied — never anything that didn't run.
+
+```
+  Run at 2026-01-15 14:32.
+  Changes applied: 9 of 14 attempted.
+
+  Failed:
+    Batch of 3 → active — failed (auth error). 0 of 3 applied.
+    Batch of 1 → draft  — not attempted (aborted after the failure).
+
+  Successful changes: 9 products archived.
+
+  To undo what did apply, say: "undo the last status audit."
+  That will set those 9 products back to active.
+```
+
+— under the hood —
+  Each row carries its previous status into the run log. Undo reads that log and
+  applies the inverse, in batches of 50, with the same preview-and-confirm flow.

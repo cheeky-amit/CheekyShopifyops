@@ -1,23 +1,30 @@
 # Today's order pulse
 
-A 6-line summary of today's orders. Ask any time.
+A quick six-line read on how today is going. Ask it any time of day.
+
+## What you can say
 
 > "How are sales today?"
 > "Give me a pulse."
 > "What happened yesterday?"
 
-## What it returns
+## What you'll see back
 
-- Order count
-- Total sales
-- Average order value
-- Paid order count
-- Unfulfilled order count + age of the oldest
+Six lines: order count, total sales, average order value, paid orders, unfulfilled count, and the age of the oldest unfulfilled order. Compared to yesterday, so you know if today is on pace, ahead, or behind. Empty days get an "0 today" message with yesterday's number for context.
 
-With optional comparison to yesterday.
+## What it won't do
 
-## What this skill won't do
+- Won't change anything — this is a read-only summary.
+- Won't show multi-day reports — that's for `analytics.daily-pulse`.
+- Won't search for a specific order — that's `orders.search`.
+- Won't show stuck unfulfilled orders by age — that's `orders.fulfillment-watchlist`.
 
-- Multi-day reports → see `analytics.daily-pulse`.
-- Search a specific order → see `orders.search`.
-- Show stuck unfulfilled orders by age → see `orders.fulfillment-watchlist`.
+## Want to see under the hood
+
+It reads today's orders (and yesterday's, for the comparison) and rolls them up into the six-line summary.
+
+## Related
+
+- [`orders.fulfillment-watchlist`](../fulfillment-watchlist/) — which orders are stuck.
+- [`orders.search`](../search/) — find a specific order.
+- [`analytics.daily-pulse`](../../analytics/daily-pulse/) — multi-day trend.

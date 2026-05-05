@@ -1,48 +1,41 @@
 # Audit and fix product statuses
 
-Find products that are in the wrong state and propose fixes:
+Find products that are in the wrong state — live but selling nothing, drafts that should be live, archived items still showing in collections — and fix them in one safe sweep.
 
-- **Live but out of stock** with no recent sales → archive.
-- **Draft** that look ready to sell (priced, in stock, in a published collection) → activate.
-- **Archived** but still listed in active collections → move to draft so the storefront stays clean.
-
-## How merchants ask for this
+## What you can say
 
 > "Audit my products."
-> "Find products that are live but out of stock."
 > "Which products are in the wrong status?"
 > "Find drafts that should be live."
 
-## How it works (short version)
+## What you'll see back
 
-1. The skill scans your products in three buckets (active-no-stock, draft-ready, archived-still-linked).
-2. It checks recent sales for each candidate (last 90 days by default).
-3. It shows you a grouped preview with current → proposed status and a one-line reason for each.
-4. **Nothing is changed until you confirm.** And by default, the first run is a dry-run — you'd opt in for the real change.
-5. After execution, you get a before/after log so you can undo if needed.
+You'll get a grouped preview: products to archive (live but out of stock with no recent sales), products to activate (drafts that look ready to sell), and products to move to draft (archived but still linked from a published collection). Every row shows the current status, the proposed status, and a one-line reason. Nothing changes from this preview alone — you decide whether to apply.
 
-## Inputs you can adjust
+## When it will ask before doing anything
 
-- **`cohort`** (default: everything) — limit the audit, e.g. `vendor:Acme`, `tag:summer-sale`, `product_type:Apparel`.
-- **`archive_no_sales_days`** (default: 90) — how long without sales before an out-of-stock active product gets flagged for archiving.
-- **`dry_run`** (default: true) — when true, only previews. Set to false to actually apply changes.
+The first run is preview-only by default. To actually change anything, you have to opt in by saying something like "apply for real." Before that, you'll see the full count and direction (e.g. "12 to archive, 3 to activate, 1 to move to draft"). Bulk changes need an explicit confirmation that includes the count — "yes — apply these 16" — so you can never accidentally trigger 500 status changes with a casual "ok."
 
-## What this skill won't do
+## What it won't do
 
-- It will not delete products. Archive is reversible; deletion isn't.
-- It will not change product details (price, title, description). Only status.
-- It will not touch products with inventory tracking turned off — those need manual review.
-- It will not run on more than 500 candidate products at once. Narrow the cohort if your store is bigger.
+- Won't delete products. Archive is reversible; deletion isn't.
+- Won't change prices, titles, or descriptions — only status.
+- Won't touch products with inventory tracking turned off — those need manual review.
+- Won't process more than 500 candidate products in one run. If your store is bigger, narrow the group first.
 
-## Limits and known gotchas
+## Settings you can change
 
-- `bulk-update-product-status` does not support compare-and-swap. The skill mitigates by re-checking each candidate's status immediately before writing and skipping anything that drifted.
-- Sales data lookups can occasionally time out. If a product's sales lookup fails, the skill excludes it from the archive bucket rather than assuming zero sales.
-- Inventory totals aggregate across all locations. A product showing `0` might just be at a closed warehouse — the skill surfaces a note when this might be the case.
+- **Group of products** (default: everything). Limit by vendor, tag, or product type — e.g. "audit only Vendor A."
+- **No-sales window** (default: 90 days). How long without a sale before an out-of-stock active product is flagged for archiving.
+- **Preview-only** (default: on). The first run never writes; you opt in to apply.
 
-## See also
+## Want to see under the hood
 
-- [`catalog.missing-content`](../missing-content/) — find products missing description, image, alt text.
-- [`catalog.duplicate-detector`](../duplicate-detector/) — find likely duplicate products.
+It searches your catalog in three buckets, looks up recent sales for each candidate, and writes status changes in batches of 50 only after you confirm. Every run leaves a full log with before/after status and an "undo" path you can ask for in plain words.
+
+## Related
+
+- [`catalog.missing-content`](../missing-content/) — products missing description, image, or alt text.
+- [`catalog.duplicate-detector`](../duplicate-detector/) — likely duplicate listings.
 - [`catalog.bulk-status-sweep`](../bulk-status-sweep/) — when you already know which products to archive.
-- [`inventory.snapshot`](../../inventory/snapshot/) — check stock per location if the audit results look surprising.
+- [`inventory.snapshot`](../../inventory/snapshot/) — check stock per location if the audit looks surprising.

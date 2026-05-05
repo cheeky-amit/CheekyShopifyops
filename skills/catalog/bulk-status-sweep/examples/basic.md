@@ -1,15 +1,15 @@
 # Example — bulk archive a vendor's out-of-stock products
 
 ```
-> Merchant: "Archive everything from Vendor A that's active and out of stock."
+> You: "Archive everything from Vendor A that's active and out of stock."
 
-example-shop · bulk status sweep
+  example-shop · bulk status sweep
 
-  Cohort:        vendor:Vendor A AND status:active AND inventory_total:0
-  Match count:   28
-  Already at ARCHIVED:  0
-  To change:     28
-  Target status: ARCHIVED
+  Group:           Vendor A, currently active, 0 in stock
+  Match count:     28
+  Already archived: 0
+  Will change:     28
+  Target status:   archived
 
    1.  Product A
    2.  Product B
@@ -40,27 +40,23 @@ example-shop · bulk status sweep
   27.  Product AA
   28.  Product BB
 
-  Bulk write: confirmation requires explicit phrasing.
-  Type "yes — archive these 28" to apply.
-  Type "no" to abort.
+  This is a bulk change. To apply, type exactly:
+    yes — archive these 28
+  Or type "no" to abort.
 
-> Merchant: "yes — archive these 28"
+> You: "yes — archive these 28"
 
-Re-checking 28 candidates for drift… ok.
+  Re-checking 28 products… ok.
 
-→ bulk-update-product-status(productIds: [...28], status: ARCHIVED)
+  Archiving 28 products… done.
 
-Run: catalog.bulk-status-sweep @ 2026-01-15T14:32:11Z
-Store: example-shop · USD · America/Denver · Shopify plan
-Cohort: vendor:Vendor A AND status:active AND inventory_total:0
-Changes applied: 28 / 28
+  Run at 2026-01-15 14:32. 28 of 28 applied.
 
-   Product A     ACTIVE → ARCHIVED   ✓
-   Product B     ACTIVE → ARCHIVED   ✓
-   …  (28 total)
+  If you want to undo, say: "undo the last bulk sweep."
+  That will set all 28 back to active.
 
-Inverse (rollback):
-   bulk-update-product-status(productIds: [...28], status: ACTIVE)
-
-Save this run log if you want to undo. To restore: ask "undo the last bulk sweep".
+— under the hood —
+  Search the group → list every match → wait for the explicit count-and-direction
+  confirmation → re-check each product right before writing → one batched status
+  change → log the inverse so undo is one ask.
 ```
