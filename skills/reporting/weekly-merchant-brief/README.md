@@ -32,13 +32,9 @@ A short "anomalies / watch" block follows, calling out things that look unusual 
 - **Stale threshold** for stuck orders (default: 72 hours).
 - **Low-stock threshold** (default: 5 units).
 
-## How it's built
-
-This is a composite. It pulls from the standalone skills you already have — `analytics.daily-pulse`, `analytics.product-performance`, `inventory.low-stock-alert`, `orders.fulfillment-watchlist`, and `analytics.cohort-retention` — and renders one consolidated read. Each section is also available standalone if you want to dig in.
-
 ## Want to see under the hood
 
-It runs the five underlying skills for the same window, gathers their outputs, and renders them as one digest with a short "what to do this week" tail.
+It rolls up five smaller skills you already have — `analytics.daily-pulse`, `analytics.product-performance`, `inventory.low-stock-alert`, `orders.fulfillment-watchlist`, and `analytics.cohort-retention` — runs them for the same window, and renders one digest with a short "what to do this week" tail. Each is also available on its own if you want to dig into a single section.
 
 ## Related
 
