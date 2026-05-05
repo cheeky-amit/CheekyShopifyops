@@ -57,6 +57,7 @@ A friendly search front-end for orders. Merchants don't know Shopify search synt
 
 ## Workflow
 
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity and `shop.currency` for parsing money phrases.
 1. Parse `spec` into a Shopify order search query. Pattern matches:
    - Order name/number (`ORDER-1001`, `1001`, `#1001`) → call `get-order` directly with the number.
    - Email substring → `email:*<value>*`.

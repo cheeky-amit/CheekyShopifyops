@@ -75,7 +75,9 @@ Stores accumulate product-status drift over time. Some products that should be s
 
 ## Workflow
 
-1. **Load shop context.** Call `_system/shop-context` to resolve the connected store. Surface the store name to the merchant — every preview must say which store this is for.
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity. This is bulk-write — the strict confirm in step 5 always applies regardless of `write_defaults`. Surface `shop.pretty` to the merchant — every preview must say which store this is for.
+
+1. (shop context already loaded above — store name and pretty line are available for headers.)
 
 2. **Build the audit cohort.**
    - If `cohort` input is provided, use it as the base filter for `search_products`.

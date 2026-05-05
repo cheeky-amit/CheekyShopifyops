@@ -40,6 +40,7 @@ version: 1.0.0
 
 ## Workflow
 
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity and `store.stage` to scale pagination (default cap 500; up to 2000 on `1m+`).
 1. Build cohort via `_system/cohort-builder` (named cohort `lapsed` with custom thresholds; AND `email_marketing_state:subscribed` if `subscribed_only`).
 2. Read via `_system/data-extraction` (cap 500).
 3. Sort by `total_spent` desc.

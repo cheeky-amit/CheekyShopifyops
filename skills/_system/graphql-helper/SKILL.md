@@ -57,6 +57,7 @@ Centralizes the four-step Admin GraphQL workflow this repo requires: schema look
 
 ## Workflow
 
+0. **Context note.** This primitive is called from a domain skill that has already loaded `_system.shop-context` (which exposes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, `needs_onboarding`, `onboarding_skipped`). The caller — not this primitive — is responsible for the onboarding handoff. This helper itself is also called *by* `_system.shop-context` to read the four `merchant_ai.*` metafields; that's the one place the helper runs without an upstream context, by design.
 1. **Schema first.** If the caller didn't provide an operation, call `graphql_schema(<schema_starting_type>)` to enumerate. For mutations, always start at `Mutation` and grep for the right name. For queries on a known type, start at the type itself.
 2. **Docs if needed.** If field semantics aren't obvious from the schema, call `search_docs_chunks` with a query like `"<TypeName> <field> example"`.
 3. **Validate.** Call `validate_graphql_codeblocks` with the operation string. If validation fails, fix the operation and re-validate. Do not proceed to execute on a validation failure.

@@ -36,6 +36,9 @@ version: 1.0.0
 
 ## Workflow
 
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity, `shop.timezone` for range resolution, and `shop.plan` to capability-check (this skill needs Shopify or higher; on Basic, surface the limit cleanly).
+1. Run the queries:
+
 ```
 FROM sales SHOW returning_customers, customers, returning_customer_rate
 TIMESERIES <granularity> SINCE <s> UNTIL <u>

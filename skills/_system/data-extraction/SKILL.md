@@ -60,6 +60,7 @@ Direct list/search tools cap at 50 records per call. Skills that audit, report, 
 
 ## Workflow
 
+0. **Context note.** This primitive is called from a domain skill that has already loaded `_system.shop-context` (which exposes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, `needs_onboarding`, `onboarding_skipped`). The caller — not this primitive — is responsible for the onboarding handoff. Callers may scale `cap` based on `store.stage` (typically 500 baseline; up to 2000 on `1m+`).
 1. Initialize: `cursor = null`, `records = []`, `iters = 0`.
 2. Loop:
    - Call `tool` with `first: page_size` and `after: cursor`.

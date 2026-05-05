@@ -50,7 +50,8 @@ A quick health-check a merchant can ask any time. "How are sales today?" → 6-l
 
 ## Workflow
 
-1. Call `_system/shop-context` for the shop's timezone (matters when computing "today").
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity, `operator.write_defaults` for confirm strictness, and `store.stage` to scale defaults. Use `shop.timezone` here for computing "today" (matters when crossing a date boundary).
+1. (shop-context already loaded above; reuse `shop.timezone`.)
 2. For sales/AOV/orders, call `run-analytics-query`:
    ```
    FROM sales

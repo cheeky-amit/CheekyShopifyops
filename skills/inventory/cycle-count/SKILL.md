@@ -72,6 +72,7 @@ The merchant counted stock on the floor. The system shows a different number. Th
 
 Composes with `_system/safe-write`.
 
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity, `operator.write_defaults` for confirm strictness, and `store.stage` to scale defaults (cycle-count is single-record so confirm strictness applies; write_defaults `a`/`c` always confirm here, `b` accepts an explicit "do it").
 1. **Resolve target.** If `target` is a name/SKU, search-and-pick. If multiple matches, surface and ask. Resolve the variant + location to inventoryItemId × locationId.
 2. **Read current.** `get-inventory-levels` → capture `available` for that pair as `previous`.
 3. **Propose.** Build change set: `{ inventoryItemId, locationId, current: previous, proposed: counted, delta: counted - previous, reason }`.

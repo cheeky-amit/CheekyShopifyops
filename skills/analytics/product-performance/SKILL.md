@@ -45,6 +45,7 @@ version: 1.0.0
 
 ## Workflow
 
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity and `store.stage` to scale `limit` defaults — 10 baseline, consider 20 on `100k-1m`/`1m+` (more SKUs, more useful tail to see).
 1. Resolve range and rank_by.
 2. For sales-based ranks:
    ```

@@ -58,6 +58,7 @@ Every domain skill takes a "cohort" or "filter" input. Without a primitive, each
 
 ## Workflow
 
+0. **Context note.** This primitive is called from a domain skill that has already loaded `_system.shop-context` (which exposes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, `needs_onboarding`, `onboarding_skipped`). The caller — not this primitive — is responsible for the onboarding handoff. Use `shop.timezone` for date-relative cohort math (e.g., "6 months ago" anchored in the shop's local time) and `store.stage` if a domain skill wants to scale a parameterized threshold (e.g., `high-value`'s default).
 1. Parse the `spec` input.
 2. **Pass-through.** If the spec uses valid Shopify search syntax for the chosen `kind`, return it as-is with a human label.
 3. **Named cohort lookup.** If the spec is a named cohort (see catalog below), expand it to its filter string.

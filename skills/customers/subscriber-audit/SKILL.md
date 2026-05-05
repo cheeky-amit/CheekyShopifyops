@@ -37,6 +37,7 @@ Compliance hygiene. Knowing who's actually subscribed, who's invalid, and what %
 
 ## Workflow
 
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity and `store.stage` to scale pagination caps (default 500; up to 2000 on `1m+`).
 1. Resolve cohort.
 2. `list-customers` paginated, group by `email_marketing_state`.
 3. Compute counts and shares.

@@ -42,6 +42,7 @@ version: 1.0.0
 
 ## Workflow
 
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity, `operator.write_defaults` for confirm strictness, and `store.stage` to scale defaults — for cohort snapshots, scale the 200-product cap up to ~500 on `100k-1m`/`1m+` stores.
 1. Resolve target. If single product (handle, SKU, name match), call `get-product` then `get-inventory-levels`.
 2. If cohort, build via `_system/cohort-builder`, paginate via `_system/data-extraction`, then for each product call `get-inventory-levels`.
 3. Render. For single product: variant × location grid. For cohort: per-product totals.

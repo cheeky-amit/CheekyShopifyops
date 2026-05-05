@@ -52,6 +52,7 @@ Reviewers verify compliance by checking that write skills reference `_system.saf
 
 ## Workflow
 
+0. **Context note.** This primitive is called from a domain skill that has already loaded `_system.shop-context` (which exposes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, `needs_onboarding`, `onboarding_skipped`). The caller — not this primitive — is responsible for the onboarding handoff. Callers MAY consult `operator.write_defaults` to relax confirm strictness on `risk: write` skills (`b` accepts an explicit "do it"; `c` may auto-apply small single-record writes), but `risk: bulk-write` always requires explicit confirmation regardless of `write_defaults`.
 1. **Read.** Call `read_fn`. Capture `before`. If `before` is empty (no records match the cohort), return `{ changes_proposed: 0, ... }` and stop — never confirm or write on an empty diff.
 2. **Propose.** Call `propose_fn(before)`. The result is a change set: list of `{ id, current, proposed, reason }`.
 3. **Diff render.** Format the change set into a merchant-readable preview, grouped by direction (e.g., "→ ARCHIVE", "→ ACTIVATE"). Show counts. Show real names (at runtime) but never expose internal tool names. Surface the store's `pretty` line from `_system.shop-context` so the merchant always knows which store this is.

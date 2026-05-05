@@ -53,6 +53,7 @@ version: 1.0.0
 
 ## Workflow
 
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity. Note that this skill creates a *new* store preview — it doesn't write to the connected store, so onboarding the connected store is not strictly required, but we still load context to scope the conversation correctly.
 1. **Confirm intent.** "These previews can only be claimed as brand-new stores — they can't be applied to an existing one. Are you starting a new brand?" If no, redirect to design tooling.
 2. **Intake.** If any of `product_or_service`, `target_audience`, `brand_style` is missing or vague, ask. Don't guess. Don't compress past what the merchant said.
 3. **Compress to keyword phrases** (≤78 chars each). Drop filler words; keep nouns and concrete descriptors. Don't add synonyms or invented attributes.

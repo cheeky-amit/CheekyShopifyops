@@ -50,6 +50,7 @@ version: 1.0.0
 
 Composes with `_system/safe-write`.
 
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity. This is a write skill; the per-cluster confirm in step 4 always applies regardless of `write_defaults` because it's bulk-affecting.
 1. **Read tag distribution.** Read products in cohort via `_system/data-extraction`. Build histogram of tags.
 2. **Cluster by signal.**
    - **case-duplicate**: `Sale`, `sale`, `SALE` → cluster, target = lowercase canonical.

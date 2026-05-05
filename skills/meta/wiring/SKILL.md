@@ -50,6 +50,11 @@ It is documentation, not an integration. It does not call other MCPs. It explain
 
 - A merchant just wants the answer to a one-shot question. Use the regular Shopify skill — don't drag wiring into a simple ask.
 
+## Workflow
+
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). This skill is documentation-only — there are no Shopify reads or writes after step 0; loading context just scopes the conversation to "this merchant, on this store" so wiring suggestions can reference the merchant's actual store name and stage.
+1. Walk the merchant through the relevant scenario below.
+
 ## Two scenarios
 
 ### Scenario A — adding another MCP alongside this bundle

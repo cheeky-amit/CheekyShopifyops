@@ -49,6 +49,7 @@ version: 1.0.0
 
 Composes with `_system/safe-write`.
 
+0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity. This is bulk-write, so the strict-echo confirm in step 5 always applies regardless of `write_defaults`.
 1. **Resolve cohort** via `_system/cohort-builder`. If cohort matches a collection, also offer the "all products in this collection" path (using `bulk-update-product-status` with `collectionId`, which the tool caps at 50 anyway).
 2. **Read** the matching products via `_system/data-extraction`. Cap at 50.
 3. **Filter to needs-change.** Drop products already at `target_status`.
