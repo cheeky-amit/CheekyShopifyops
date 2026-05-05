@@ -1,0 +1,22 @@
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Client-specific (contributors use whatever client they want — those configs don't belong in this repo)
+.claude/
+.cursor/
+.aider*
+
+# Local verification artifacts (never commit raw store data)
+*.local.md
+*.scratch.*
+verify-*.json
+verify-*.txt
+
+# Env / secrets
+.env
+.env.*
+*.pem
+*.key
