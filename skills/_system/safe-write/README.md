@@ -10,7 +10,7 @@ read → diff → confirm → CAS-or-recheck → log + rollback note
 
 Without this primitive, every write skill would re-implement the safety pattern slightly differently. With it, reviewers can verify a new skill is safe by checking that it composes with `safe-write` and reads from the same diff/confirm/rollback shape.
 
-This is the operational form of [`docs/safety.md`](../../../docs/safety.md). When the contract changes, both files change together.
+This is the operational form of [`docs/contributors/safety-contract.md`](../../../docs/contributors/safety-contract.md). When the contract changes, both files change together.
 
 ## Used by
 

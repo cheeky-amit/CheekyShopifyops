@@ -36,7 +36,7 @@ version: 1.0.0
 
 ## Workflow
 
-1. Read products via `primitives/data-extraction` (cap 500).
+1. Read products via `_system/data-extraction` (cap 500).
 2. For each requested signal, build clusters:
    - **SKU**: group by SKU; clusters with size > 1 are duplicates.
    - **Barcode**: same.

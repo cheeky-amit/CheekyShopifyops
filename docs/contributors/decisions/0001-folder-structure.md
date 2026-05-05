@@ -8,7 +8,7 @@ Two-level skill hierarchy:
 
 ```
 skills/
-├── primitives/<kebab-name>/      # Internal building blocks
+├── _system/<kebab-name>/         # Internal building blocks
 └── <category>/<kebab-name>/      # Domain skills, organized by role intent
 ```
 

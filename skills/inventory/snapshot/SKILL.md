@@ -43,7 +43,7 @@ version: 1.0.0
 ## Workflow
 
 1. Resolve target. If single product (handle, SKU, name match), call `get-product` then `get-inventory-levels`.
-2. If cohort, build via `primitives/cohort-builder`, paginate via `primitives/data-extraction`, then for each product call `get-inventory-levels`.
+2. If cohort, build via `_system/cohort-builder`, paginate via `_system/data-extraction`, then for each product call `get-inventory-levels`.
 3. Render. For single product: variant × location grid. For cohort: per-product totals.
 
 ## Output format

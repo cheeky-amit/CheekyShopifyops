@@ -40,7 +40,7 @@ version: 1.0.0
 
 ## Workflow
 
-`list-customers` doesn't expose first-order date as a filter field directly. Use GraphQL via `primitives/graphql-helper`:
+`list-customers` doesn't expose first-order date as a filter field directly. Use GraphQL via `_system/graphql-helper`:
 
 ```
 query AnniversaryCohort($after: String) {

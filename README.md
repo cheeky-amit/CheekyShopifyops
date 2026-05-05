@@ -77,7 +77,7 @@ Every action that changes your store follows the same five-step contract:
 4. **Compare-and-swap** where Shopify supports it — so a parallel sale can't be silently overwritten by a stale write (this is critical for inventory).
 5. **Log** before/after with rollback instructions.
 
-Some Shopify operations are **blocked at the MCP level** and these skills do not attempt them: refunds, gift card writes, staff management, theme publishing, and writes to your live theme. If you ask for one of those, the skill tells you and points you to the Shopify admin path. Full contract in [`docs/safety.md`](docs/safety.md).
+Some Shopify operations are **blocked at the MCP level** and these skills do not attempt them: refunds, gift card writes, staff management, theme publishing, and writes to your live theme. If you ask for one of those, the skill tells you and points you to the Shopify admin path. Full contract in [`docs/contributors/safety-contract.md`](docs/contributors/safety-contract.md).
 
 ## What this can't do
 
@@ -90,7 +90,7 @@ If you want to combine these with other tools (e.g., send a win-back email to th
 ```
 CheekyShopifyops/
 ├── skills/
-│   ├── primitives/     # Building blocks the other skills use (not invoked directly)
+│   ├── _system/        # Building blocks the other skills use (not invoked directly)
 │   ├── catalog/        # Product audits, content, dedup, tag cleanup
 │   ├── inventory/      # Snapshot, low-stock, cycle count, receive
 │   ├── orders/         # Pulse, fulfillment watchlist, search
@@ -113,7 +113,7 @@ Pull requests welcome. Quick rules:
 - Every write skill follows the safety contract — no exceptions.
 - **No real store data** in any committed file (titles, SKUs, customer emails, order numbers, GIDs, domains, prices). Use the placeholder convention: `Product A`, `customer@example.com`, `ORDER-1001`, `$XX.XX`, `gid://shopify/Product/000`.
 
-Full guide: [CONTRIBUTING.md](CONTRIBUTING.md). Conventions and frontmatter schema: [`docs/conventions.md`](docs/conventions.md).
+Full guide: [CONTRIBUTING.md](CONTRIBUTING.md). Conventions and frontmatter schema: [`docs/contributors/conventions.md`](docs/contributors/conventions.md).
 
 ## License
 

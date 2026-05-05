@@ -34,7 +34,7 @@ Every skill folder contains:
 - `README.md` — human-facing explanation. What the skill does, when to use it, examples.
 - `examples/` — at least one example with **generic placeholder data only**.
 
-Frontmatter schema in [docs/conventions.md](docs/conventions.md).
+Frontmatter schema in [docs/contributors/conventions.md](docs/contributors/conventions.md).
 
 ## Audience voice
 
@@ -56,7 +56,7 @@ Before committing a skill:
 
 ## Decisions
 
-Structural decisions are documented as ADRs in `docs/decisions/`. Add a new ADR when changing folder layout, frontmatter schema, ID scheme, or skill inventory.
+Structural decisions are documented as ADRs in `docs/contributors/decisions/`. Add a new ADR when changing folder layout, frontmatter schema, ID scheme, or skill inventory.
 
 ## Don't
 

@@ -52,8 +52,8 @@ Catch orders that are slipping through the cracks. The merchant doesn't want a C
 
 ## Workflow
 
-1. Compose cohort via `primitives/cohort-builder` with named cohort `at-risk-stuck` (= `fulfillment_status:unfulfilled AND created_at:<'<stale_after_hours-ago>'`) plus `paid-unfulfilled` for the today bucket. If `include_partial`, also pull `fulfillment_status:partial`.
-2. Read each cohort via `list-orders` with `query` filter, paginated via `primitives/data-extraction` (cap 100 — beyond that, the merchant should triage by date).
+1. Compose cohort via `_system/cohort-builder` with named cohort `at-risk-stuck` (= `fulfillment_status:unfulfilled AND created_at:<'<stale_after_hours-ago>'`) plus `paid-unfulfilled` for the today bucket. If `include_partial`, also pull `fulfillment_status:partial`.
+2. Read each cohort via `list-orders` with `query` filter, paginated via `_system/data-extraction` (cap 100 — beyond that, the merchant should triage by date).
 3. For each order, compute age in hours.
 4. Sort by age desc within each bucket.
 5. Render grouped list. Strip customer last name to first initial for display ("Customer A B." not full surname) — privacy-respectful summary; merchant can ask for one specific order's details.

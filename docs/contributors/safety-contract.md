@@ -1,6 +1,6 @@
 # Safety contract
 
-Every skill in this repo must follow this contract. The `primitives/safe-write` skill operationalizes it; domain skills compose it.
+Every skill in this repo must follow this contract. The `_system/safe-write` skill operationalizes it; domain skills compose it.
 
 ## The five steps
 
@@ -103,7 +103,7 @@ Even during verification, real store data is treated as privileged:
 
 - Read operations are fine.
 - Their **outputs** never get written to repo files.
-- Examples in `examples/` use generic placeholders only (see `docs/conventions.md` placeholder table).
+- Examples in `examples/` use generic placeholders only (see `docs/contributors/conventions.md` placeholder table).
 - Commit messages, PR titles, issue bodies must not include real store data.
 
 If a skill author accidentally captures real data in a draft, they search-and-replace before committing. Reviewers grep PRs for store-shaped strings (`*.myshopify.com`, `gid://shopify/Product/[1-9]`, `@gmail.com`, etc.) before merging.

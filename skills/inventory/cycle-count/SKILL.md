@@ -70,7 +70,7 @@ The merchant counted stock on the floor. The system shows a different number. Th
 
 ## Workflow
 
-Composes with `primitives/safe-write`.
+Composes with `_system/safe-write`.
 
 1. **Resolve target.** If `target` is a name/SKU, search-and-pick. If multiple matches, surface and ask. Resolve the variant + location to inventoryItemId × locationId.
 2. **Read current.** `get-inventory-levels` → capture `available` for that pair as `previous`.

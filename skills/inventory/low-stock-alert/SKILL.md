@@ -41,7 +41,7 @@ version: 1.0.0
 
 ## Workflow
 
-1. Cohort + threshold via `primitives/cohort-builder`. Add filter `inventory_total:<=<threshold>` (and `inventory_total:>0` if `include_out_of_stock` is false).
+1. Cohort + threshold via `_system/cohort-builder`. Add filter `inventory_total:<=<threshold>` (and `inventory_total:>0` if `include_out_of_stock` is false).
 2. `search_products` → paginated read.
 3. For each, fetch recent sales:
    ```

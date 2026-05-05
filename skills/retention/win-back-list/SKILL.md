@@ -40,8 +40,8 @@ version: 1.0.0
 
 ## Workflow
 
-1. Build cohort via `primitives/cohort-builder` (named cohort `lapsed` with custom thresholds; AND `email_marketing_state:subscribed` if `subscribed_only`).
-2. Read via `primitives/data-extraction` (cap 500).
+1. Build cohort via `_system/cohort-builder` (named cohort `lapsed` with custom thresholds; AND `email_marketing_state:subscribed` if `subscribed_only`).
+2. Read via `_system/data-extraction` (cap 500).
 3. Sort by `total_spent` desc.
 4. Render snapshot + abbreviated list (first name + last initial).
 

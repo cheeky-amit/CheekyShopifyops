@@ -36,8 +36,8 @@ Merchants ask "who are my VIPs?" or "what does my lapsed cohort look like?" — 
 
 ## Workflow
 
-1. Resolve `cohort` via `primitives/cohort-builder` (kind: customers).
-2. Read via `list-customers` paginated by `primitives/data-extraction` (cap 500).
+1. Resolve `cohort` via `_system/cohort-builder` (kind: customers).
+2. Read via `list-customers` paginated by `_system/data-extraction` (cap 500).
 3. Compute aggregates:
    - count
    - average `total_spent`

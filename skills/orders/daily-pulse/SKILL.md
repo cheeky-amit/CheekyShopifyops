@@ -50,7 +50,7 @@ A quick health-check a merchant can ask any time. "How are sales today?" → 6-l
 
 ## Workflow
 
-1. Call `primitives/shop-context` for the shop's timezone (matters when computing "today").
+1. Call `_system/shop-context` for the shop's timezone (matters when computing "today").
 2. For sales/AOV/orders, call `run-analytics-query`:
    ```
    FROM sales

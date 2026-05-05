@@ -62,7 +62,7 @@ version: 1.0.0
 
 ## Workflow
 
-Composes with `primitives/safe-write`.
+Composes with `_system/safe-write`.
 
 1. **Resolve scope.** If `scope_collection` is a name, search → GID. If multiple matches, ask.
 2. **Validate.**

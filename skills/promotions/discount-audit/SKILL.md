@@ -32,7 +32,7 @@ version: 1.0.0
 
 ## Workflow
 
-1. There is no direct tool for listing discount nodes. Use `primitives/graphql-helper` (kind: query) on `discountNodes`.
+1. There is no direct tool for listing discount nodes. Use `_system/graphql-helper` (kind: query) on `discountNodes`.
 2. Query (validate first):
    ```
    query DiscountList($after: String) {

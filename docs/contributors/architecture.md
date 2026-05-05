@@ -7,7 +7,7 @@ Two layers:
 **Primitives** — internal building blocks. Not invoked directly by merchants. Other skills reference them.
 
 ```
-primitives/
+_system/
   shop-context/        # Loads shop profile (currency, plan, timezone). Almost every other skill calls this first.
   graphql-helper/      # Wraps schema → docs → validate → execute for any GraphQL hop.
   safe-write/          # Preview/diff/confirm/log/rollback scaffolding. Required by every write skill.
@@ -49,7 +49,7 @@ graphql_schema(<type>)
   → graphql_query / graphql_mutation
 ```
 
-Skills must not skip validation. The `primitives/graphql-helper` skill encodes this so domain skills don't have to repeat it.
+Skills must not skip validation. The `_system/graphql-helper` skill encodes this so domain skills don't have to repeat it.
 
 ## Merchant-facing language
 
@@ -62,8 +62,8 @@ Internal skill body can name tools (it's instructions for Claude). Output to the
 
 ## Multi-store
 
-`switch-shop` is supported. Skills should call `primitives/shop-context` first so they're aware which store they're operating on, and surface the store name in any preview before a write.
+`switch-shop` is supported. Skills should call `_system/shop-context` first so they're aware which store they're operating on, and surface the store name in any preview before a write.
 
 ## Where the safety contract lives
 
-[`docs/safety.md`](safety.md) is canonical. The `primitives/safe-write` skill operationalizes it. `CLAUDE.md` enforces it as a hard rule. Three places, one source of truth — when changing the contract, update all three.
+[`safety-contract.md`](safety-contract.md) is canonical. The `_system/safe-write` skill operationalizes it. `CLAUDE.md` enforces it as a hard rule. Three places, one source of truth — when changing the contract, update all three.

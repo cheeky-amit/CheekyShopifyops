@@ -40,7 +40,7 @@ version: 1.0.0
 
 ## Workflow
 
-1. Resolve cohort via `primitives/cohort-builder`.
+1. Resolve cohort via `_system/cohort-builder`.
 2. `list-customers` with cohort filter, sorted by `total_spent` desc (or `orders_count` desc).
 3. Render abbreviated.
 

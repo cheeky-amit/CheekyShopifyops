@@ -4,7 +4,7 @@
 
 ## Decision
 
-Every `SKILL.md` carries YAML frontmatter with required fields: `id`, `name`, `title`, `description`, `audience`, `category`, `risk`, `mcp_tools`, `graphql`, `triggers`, `outputs`, `status`, `version`. Plus `safety` for non-read skills, plus optional `roles`, `inputs`. See `docs/conventions.md` for the full schema and field definitions.
+Every `SKILL.md` carries YAML frontmatter with required fields: `id`, `name`, `title`, `description`, `audience`, `category`, `risk`, `mcp_tools`, `graphql`, `triggers`, `outputs`, `status`, `version`. Plus `safety` for non-read skills, plus optional `roles`, `inputs`. See `docs/contributors/conventions.md` for the full schema and field definitions.
 
 ## Why this set of fields
 

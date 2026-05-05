@@ -47,10 +47,10 @@ version: 1.0.0
 
 ## Workflow
 
-Composes with `primitives/safe-write`.
+Composes with `_system/safe-write`.
 
-1. **Resolve cohort** via `primitives/cohort-builder`. If cohort matches a collection, also offer the "all products in this collection" path (using `bulk-update-product-status` with `collectionId`, which the tool caps at 50 anyway).
-2. **Read** the matching products via `primitives/data-extraction`. Cap at 50.
+1. **Resolve cohort** via `_system/cohort-builder`. If cohort matches a collection, also offer the "all products in this collection" path (using `bulk-update-product-status` with `collectionId`, which the tool caps at 50 anyway).
+2. **Read** the matching products via `_system/data-extraction`. Cap at 50.
 3. **Filter to needs-change.** Drop products already at `target_status`.
 4. **Diff render** with explicit cohort echo:
    ```

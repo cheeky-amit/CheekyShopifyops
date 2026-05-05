@@ -1,0 +1,1 @@
+Engineering docs for contributors. If you're here to add a skill or modify the framework, start with `/CONTRIBUTING.md` in the repo root, then read `architecture.md`, `conventions.md`, and the ADRs in `decisions/`.

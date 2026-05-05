@@ -46,7 +46,7 @@ version: 1.0.0
 
 ## Workflow
 
-Composes with `primitives/safe-write`.
+Composes with `_system/safe-write`.
 
 1. **Resolve each item** (target → product/variant, location → GID).
 2. **Read current** for each (item × location).

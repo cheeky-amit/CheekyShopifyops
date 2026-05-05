@@ -89,7 +89,7 @@ Internal — caller (the domain skill) handles merchant-facing rendering. The pr
 - **Mid-flight drift.** Caught in step 5. Drifted items are skipped; the run log notes them.
 - **Partial failure.** If the write tool returns success for some records and failure for others, the log distinguishes applied/failed/not-attempted.
 - **Tool unavailable / network error.** Surfaces as a step-6 failure. Log captures what was attempted; the merchant gets a clean "X of N succeeded" report.
-- **Merchant says "yes" to a bulk write that exceeds the tool's per-call cap.** The caller batches; this primitive doesn't enforce cap awareness, but most callers will batch via `primitives/data-extraction` patterns.
+- **Merchant says "yes" to a bulk write that exceeds the tool's per-call cap.** The caller batches; this primitive doesn't enforce cap awareness, but most callers will batch via `_system/data-extraction` patterns.
 
 ## Examples
 

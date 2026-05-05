@@ -48,9 +48,9 @@ version: 1.0.0
 
 ## Workflow
 
-Composes with `primitives/safe-write`.
+Composes with `_system/safe-write`.
 
-1. **Read tag distribution.** Read products in cohort via `primitives/data-extraction`. Build histogram of tags.
+1. **Read tag distribution.** Read products in cohort via `_system/data-extraction`. Build histogram of tags.
 2. **Cluster by signal.**
    - **case-duplicate**: `Sale`, `sale`, `SALE` → cluster, target = lowercase canonical.
    - **near-duplicate**: trigram or Levenshtein similarity above threshold (`Tshirt`, `T-shirt`, `tshirts`) → cluster, target = most-used spelling.

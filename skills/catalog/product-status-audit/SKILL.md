@@ -75,7 +75,7 @@ Stores accumulate product-status drift over time. Some products that should be s
 
 ## Workflow
 
-1. **Load shop context.** Call `primitives/shop-context` to resolve the connected store. Surface the store name to the merchant — every preview must say which store this is for.
+1. **Load shop context.** Call `_system/shop-context` to resolve the connected store. Surface the store name to the merchant — every preview must say which store this is for.
 
 2. **Build the audit cohort.**
    - If `cohort` input is provided, use it as the base filter for `search_products`.
