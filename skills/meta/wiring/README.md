@@ -18,4 +18,4 @@ Your project's cross-bundle skills can compose these as building blocks: read fr
 ## See also
 
 - [SKILL.md](SKILL.md) — patterns and worked examples for both scenarios.
-- [CLAUDE.md](../../../CLAUDE.md) — the strict-MCP rule and other contributor invariants.
+- [working-contract.md](../../../docs/contributors/working-contract.md) — the strict-MCP rule and other contributor invariants.

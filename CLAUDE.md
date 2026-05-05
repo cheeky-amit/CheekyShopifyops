@@ -1,66 +1,60 @@
-# Working contract — shopify-skills
+# Welcome — running your Shopify store with Claude
 
-Read this before editing or adding skills.
+This is a bundle of ready-made skills for running your Shopify store through plain conversation. Connect your store, ask in normal English, and get answers, audits, and (when you say so) safe changes back.
 
-## Mission
+## How to talk to it
 
-Build a community library of Claude Skills for the Shopify Admin MCP. Two audiences: **merchants** (use seed skills as-is) and **contributors** (add skills using shared conventions).
+- Talk normally. You don't memorize commands.
+- Ask "what can you do?" any time and you'll get a tour.
+- If you're not sure what to ask, try "shop snapshot" or "weekly brief."
 
-## Hard rules
+## First time here?
 
-1. **Strict MCP scope.** Skills MUST only call the connected Shopify MCP. No external HTTP, no other MCPs. Exception: `meta/wiring` is documentation-only.
-2. **Tool honesty.** Only reference tools that exist. If a workflow needs something the MCP doesn't expose, flag it and propose an alternative — never invent.
-3. **No real store data anywhere.** Names, emails, SKUs, order numbers, prices, customer info, product titles, vendor names, domains — none of it appears in this repo. Use generic placeholders (`Product A`, `customer@example.com`, `ORDER-1001`, `$XX.XX`, `gid://shopify/Product/000`).
-4. **Preview → confirm → execute** for every write skill. No exceptions.
-5. **Compare-and-swap** wherever the MCP supports it (e.g., `set-inventory` `compareQuantity`).
-6. **Document rollback** for every write skill, even if rollback is "manually re-set the previous value."
-7. **Blocked ops stay blocked.** Refunds, gift card writes, staff management, theme publishing, and writes to live themes are out-of-scope. Document the alternative (Shopify admin UI) instead of routing around the block.
+Run "set me up" — or just ask anything; the first ask will trigger setup. Takes about 60 seconds. The skill learns who you are, what stage your store is at, and how cautious you want it to be on changes. Everything else gets tailored from there.
 
-## GraphQL workflow
+## What it can do for you
 
-Whenever a skill uses `graphql_query` or `graphql_mutation`:
+**Catalog** — audit your products and clean them up. Try "find live products with no stock," "show duplicates," "audit my tags."
 
-```
-graphql_schema  →  search_docs_chunks (if needed)  →  validate_graphql_codeblocks  →  execute
-```
+**Inventory** — see what you have, what's running low, and reconcile counts. Try "what's running low?" "I counted 18 of Product A at the warehouse," "shipment came in for vendor X."
 
-Never call `graphql_mutation` without validation. Never guess field names.
+**Orders** — pulse on today and watch for stuck shipments. Try "pulse," "show stuck orders," "find ORDER-1001."
 
-## Skill format
+**Customers** — see who buys, who's loyal, who's on your list. Try "top 30 spenders," "subscriber audit," "lapsed VIPs."
 
-Every skill folder contains:
+**Promotions** — plan a sale and check what's already running. Try "create a 15% code SUMMER15," "plan a 20% sale on Collection X," "what discounts are live?"
 
-- `SKILL.md` — frontmatter + workflow. Loaded by Claude when the skill activates.
-- `README.md` — human-facing explanation. What the skill does, when to use it, examples.
-- `examples/` — at least one example with **generic placeholder data only**.
+**Analytics** — see how the store is trending. Try "sales last 30 days vs prior 30," "top and bottom products," "where's traffic coming from?"
 
-Frontmatter schema in [docs/contributors/conventions.md](docs/contributors/conventions.md).
+**Retention** — find people worth bringing back. Try "build a win-back list," "who's near their first-order anniversary?"
 
-## Audience voice
+**Storefront** — store-level checks. Try "shop snapshot," "show me theme previews from a description."
 
-Skills are for **merchants**, not developers. Voice rules:
+**Reporting** — one read at the start of the week. Try "weekly brief."
 
-- Plain language. Define jargon on first use ("GID — Shopify's internal product ID").
-- Lead with the answer. Show the summary first, details after.
-- No raw JSON dumps in skill output. Summarize.
-- Never quote MCP tool names at merchants ("call `search_products`"). Say what it does ("look up your products").
-- When asking for confirmation, show what will change in human terms ("12 products → ARCHIVED, 3 products → ACTIVE").
+## What stays safe
 
-## Verification standard
+- Nothing changes without showing you first.
+- Bulk changes need a clear "yes — change these N" from you.
+- Inventory writes use a safety check so a sale that just happened can't get silently overwritten.
+- Some risky things are blocked entirely: refunds, gift cards, theme publishing, staff management. Those go through your Shopify admin.
 
-Before committing a skill:
+Full safety story: [docs/how-this-stays-safe.md](docs/how-this-stays-safe.md).
 
-- **Read paths:** verify against the connected MCP. Confirm shape, pagination behavior, edge cases.
-- **Write paths:** verify via dry-run / preview only. **Never** execute writes against a live store from this repo.
-- **Redact:** if a tool response surfaces real data during verification, it does not get written to disk in any form.
+## What it can't do
 
-## Decisions
+- Send email or SMS — that needs a different tool.
+- Place supplier orders or sync to accounting — also other tools.
+- Touch your live theme or add staff — blocked by Shopify.
 
-Structural decisions are documented as ADRs in `docs/contributors/decisions/`. Add a new ADR when changing folder layout, frontmatter schema, ID scheme, or skill inventory.
+Full list: [docs/what-this-cant-do.md](docs/what-this-cant-do.md). To combine these skills with email/SMS/etc., see [skills/meta/wiring](skills/meta/wiring/README.md).
 
-## Don't
+## When it gets stuck
 
-- Don't add a skill that duplicates an existing one. Compose primitives instead.
-- Don't add a "framework" skill that does nothing on its own — every skill must answer a merchant question or do a merchant action.
-- Don't add `.claude/`, `.cursor/`, or other client-specific tooling to the repo. This is a public skill library; contributors use whatever client they want.
-- Don't include real screenshots, real CSV dumps, real anonymized-but-recognizable customer data.
+- Tell it more specifically (vendor, date range, customer name).
+- Ask it to narrow the search.
+- If you have multiple stores, say "switch shop" and pick one.
+
+## Want to add a skill or change one?
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). The technical details live in [docs/contributors/](docs/contributors/).

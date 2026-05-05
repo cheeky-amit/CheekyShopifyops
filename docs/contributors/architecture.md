@@ -66,4 +66,4 @@ Internal skill body can name tools (it's instructions for Claude). Output to the
 
 ## Where the safety contract lives
 
-[`safety-contract.md`](safety-contract.md) is canonical. The `_system/safe-write` skill operationalizes it. `CLAUDE.md` enforces it as a hard rule. Three places, one source of truth — when changing the contract, update all three.
+[`safety-contract.md`](safety-contract.md) is canonical. The `_system/safe-write` skill operationalizes it. [`working-contract.md`](working-contract.md) enforces it as a hard rule. Three places, one source of truth — when changing the contract, update all three.

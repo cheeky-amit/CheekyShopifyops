@@ -38,7 +38,7 @@ Metafields are portable — every Shopify store keeps its own profile, and switc
 
 | Alternative | Why rejected |
 |---|---|
-| **Local profile file** in the skill repo (e.g. `.shop-skills/profile.json`). | Couples to client install, not to store. Loses state on switch-shop. Pollutes a public skill repo with per-merchant data. Violates the "no `.claude/` or client tooling" rule in CLAUDE.md. |
+| **Local profile file** in the skill repo (e.g. `.shop-skills/profile.json`). | Couples to client install, not to store. Loses state on switch-shop. Pollutes a public skill repo with per-merchant data. Violates the "no `.claude/` or client tooling" rule in the contributor working contract. |
 | **No persistence — re-derive every session.** | Most useful fields (operator name/role, voice preference, write-defaults) cannot be derived from store data at all. Re-deriving the rest each session burns API calls and asks the merchant the same questions repeatedly. |
 | **Per-conversation storage** (model memory only). | Loses on session restart. Defeats the purpose of "every skill knows you." |
 | **Customer-scoped metafields** (use the merchant's customer record). | Most merchants don't have a customer record on their own store. Wrong owner type. |
