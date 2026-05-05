@@ -1,4 +1,4 @@
-# graphql-helper (primitive)
+# graphql-helper
 
 **Internal building block.** Skill authors use this so they don't have to re-implement the schema → docs → validate → execute chain every time.
 

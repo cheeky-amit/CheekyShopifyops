@@ -12,11 +12,11 @@ Ship 35 skills in v1, organized as below. The inventory is reduced from the sugg
 
 | ID | Purpose |
 |---|---|
-| `primitives.shop-context` | Standard shop profile load (currency, plan, timezone, country). Almost every other skill calls this first. |
-| `primitives.graphql-helper` | Wraps `graphql_schema → search_docs_chunks → validate_graphql_codeblocks → execute`. |
-| `primitives.safe-write` | Preview / diff / confirm / before-after log / rollback scaffolding. Required by every write skill. |
-| `primitives.cohort-builder` | Reusable patterns for product/customer cohorts using Shopify search syntax. |
-| `primitives.data-extraction` | Pagination-aware bulk read with the 50-per-call cap baked in. |
+| `_system.shop-context` | Standard shop profile load (currency, plan, timezone, country). Almost every other skill calls this first. |
+| `_system.graphql-helper` | Wraps `graphql_schema → search_docs_chunks → validate_graphql_codeblocks → execute`. |
+| `_system.safe-write` | Preview / diff / confirm / before-after log / rollback scaffolding. Required by every write skill. |
+| `_system.cohort-builder` | Reusable patterns for product/customer cohorts using Shopify search syntax. |
+| `_system.data-extraction` | Pagination-aware bulk read with the 50-per-call cap baked in. |
 
 ### Catalog — 6
 
@@ -84,7 +84,7 @@ Ship 35 skills in v1, organized as below. The inventory is reduced from the sugg
 | ID | Purpose |
 |---|---|
 | `storefront.new-store-preview` | Wraps `get-new-store-previews` with a merchant-friendly intake. |
-| `storefront.shop-snapshot` | Shop profile + plan/limits awareness (composes `primitives.shop-context`). |
+| `storefront.shop-snapshot` | Shop profile + plan/limits awareness (composes `_system.shop-context`). |
 
 ### Reporting — 1
 
@@ -112,7 +112,7 @@ Ship 35 skills in v1, organized as below. The inventory is reduced from the sugg
 | Email / SMS sending | No transactional/marketing send tools in Shopify MCP. Composes with email MCPs separately — see `meta.wiring`. |
 | Tax / legal / compliance integrations | Most need external systems (Avalara, accountants); out of scope. |
 | Per-role "founder dashboard" / "CFO board pack" / "CMO mix report" skills | Replaced by `reporting.weekly-merchant-brief` + analytics primitives. Roles live in frontmatter, not skill folders. |
-| Three separate cohort skills (product / customer / order) | Replaced by `primitives.cohort-builder` + cohort use embedded in domain skills. |
+| Three separate cohort skills (product / customer / order) | Replaced by `_system.cohort-builder` + cohort use embedded in domain skills. |
 | Multiple discount-shape skills (BXGY, fixed amount, free ship) | v1 supports percentage via direct tool. Other shapes deferred to v2; would need full GraphQL workflow. |
 | Multi-store consolidation skill | Deferred. `switch-shop` exists but cross-store reporting is a v2 concern. |
 | B2B / Markets / pricelists | Deferred to v2 — deeper GraphQL surface, less common merchant ask. |
@@ -121,8 +121,8 @@ Ship 35 skills in v1, organized as below. The inventory is reduced from the sugg
 
 ## Additions (vs the suggested list)
 
-- **`primitives.cohort-builder`** — was implicit; making it explicit prevents three role-flavored cohort skills from drifting apart.
-- **`primitives.data-extraction`** — pagination is mentioned in tool descriptions but it's worth a primitive so every skill handles the 50-cap correctly.
+- **`_system.cohort-builder`** — was implicit; making it explicit prevents three role-flavored cohort skills from drifting apart.
+- **`_system.data-extraction`** — pagination is mentioned in tool descriptions but it's worth a primitive so every skill handles the 50-cap correctly.
 - **`storefront.shop-snapshot`** — small but every merchant asks "what's my plan / what currency am I in" — easy win.
 
 ## Phase ordering for v1 build

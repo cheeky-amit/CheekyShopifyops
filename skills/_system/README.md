@@ -1,3 +1,5 @@
+# System primitives
+
 **Internal building blocks.** Not called directly by merchants. Used by other skills via composition. If you're a merchant browsing, you can ignore this folder — these are the internal helpers other skills use.
 
 - `shop-context/` — Loads shop profile (currency, plan, timezone). Almost every other skill calls this first.

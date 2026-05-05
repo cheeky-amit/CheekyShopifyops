@@ -1,11 +1,11 @@
 ---
-id: primitives.graphql-helper
+id: _system.graphql-helper
 name: graphql-helper
 title: Run a validated Admin GraphQL operation
 description: Wraps the schema → docs → validate → execute workflow so domain skills can call GraphQL safely without re-implementing the validation chain.
 audience: contributor
 roles: []
-category: primitives
+category: _system
 risk: read
 mcp_tools:
   - graphql_schema

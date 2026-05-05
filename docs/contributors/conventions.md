@@ -7,7 +7,7 @@ Format: `<category>.<kebab-name>`
 Examples:
 - `catalog.product-status-audit`
 - `inventory.cycle-count`
-- `primitives.shop-context`
+- `_system.shop-context`
 - `meta.wiring`
 
 Rules:
@@ -37,7 +37,7 @@ id: catalog.product-status-audit
 name: product-status-audit
 title: Audit and fix product statuses
 description: Find products in the wrong status (live without stock, draft with sales, archived but linked) and propose fixes.
-audience: merchant         # merchant | contributor (primitives use 'contributor')
+audience: merchant         # merchant | contributor (_system primitives use 'contributor')
 roles: [merchandiser, founder]
 category: catalog
 risk: write                # read | write | bulk-write
@@ -83,7 +83,7 @@ version: 1.0.0
 | `name` | yes | Kebab portion of the ID. |
 | `title` | yes | Sentence-case, for humans. No "Skill:" prefix. |
 | `description` | yes | One sentence. What it does, in plain language. ≤140 chars. |
-| `audience` | yes | `merchant` for skills merchants invoke; `contributor` for primitives. |
+| `audience` | yes | `merchant` for skills merchants invoke; `contributor` for `_system` primitives. |
 | `roles` | no | Hint for which kind of merchant cares. Used in docs/index, not in routing. |
 | `category` | yes | Top-level folder. |
 | `risk` | yes | `read` (no writes), `write` (single-record writes), `bulk-write` (many records). |
@@ -135,7 +135,7 @@ Link to examples/. ≥1 with placeholder data only.
 - **Folder names**: `kebab-case`, matching the skill ID's kebab portion.
 - **Skill files**: `SKILL.md` (uppercase), `README.md`, `examples/*.md` (`kebab-case.md`).
 - **Trigger phrases**: lowercase, plain English. Imperative or question.
-- **Categories**: single-word, lowercase, plural noun (`catalogs`? — no, **`catalog`**, treat as a domain not a count).
+- **Categories**: single-word, lowercase, domain-shaped (`catalogs`? — no, **`catalog`**, treat as a domain not a count). Exception: `_system`, which uses an underscore-prefix to signal it's internal/system tooling not invoked directly by merchants. The folder (`skills/_system/`) and the ID prefix (`_system.*`) match deliberately.
 - **Placeholder data** (in examples and copy):
 
 | Type | Placeholder |

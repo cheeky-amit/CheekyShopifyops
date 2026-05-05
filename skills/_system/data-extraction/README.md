@@ -1,4 +1,4 @@
-# data-extraction (primitive)
+# data-extraction
 
 **Internal building block.** Pagination-aware bulk read for any list/search tool or GraphQL connection.
 

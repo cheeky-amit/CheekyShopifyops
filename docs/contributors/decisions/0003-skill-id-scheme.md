@@ -4,7 +4,7 @@
 
 ## Decision
 
-`<category>.<kebab-name>` — e.g. `catalog.product-status-audit`, `primitives.shop-context`.
+`<category>.<kebab-name>` — e.g. `catalog.product-status-audit`, `_system.shop-context`.
 
 Folder path mirrors the kebab portion: `skills/<category>/<kebab-name>/`.
 
@@ -25,7 +25,7 @@ Folder path mirrors the kebab portion: `skills/<category>/<kebab-name>/`.
 
 ## Reserved prefixes
 
-- `primitives.*` — internal, not invoked directly by merchants.
+- `_system.*` — internal primitives, not invoked directly by merchants. The underscore prefix is deliberate: it's an uncommon shape for a category name, and that's the point — it signals "internal/system tooling" at a glance, in both the skill ID and the folder name (`skills/_system/`).
 - `meta.*` — documentation-style skills (e.g., `meta.wiring`).
 
 ## When to revisit

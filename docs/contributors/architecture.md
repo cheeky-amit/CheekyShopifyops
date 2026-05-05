@@ -4,7 +4,7 @@
 
 Two layers:
 
-**Primitives** — internal building blocks. Not invoked directly by merchants. Other skills reference them.
+**Primitives** — internal building blocks. Not invoked directly by merchants. Other skills reference them. Folder: `skills/_system/` (the underscore signals "internal"); IDs use the `_system.*` prefix to match.
 
 ```
 _system/

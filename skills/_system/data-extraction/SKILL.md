@@ -1,11 +1,11 @@
 ---
-id: primitives.data-extraction
+id: _system.data-extraction
 name: data-extraction
 title: Pagination-aware bulk read
 description: Iterate cursor-based listings (search_products, list-orders, list-customers, search_collections, GraphQL) without losing records to the 50-per-call cap.
 audience: contributor
 roles: []
-category: primitives
+category: _system
 risk: read
 mcp_tools:
   - search_products
@@ -25,7 +25,7 @@ inputs:
     description: "search_products | search_collections | list-orders | list-customers | graphql_query"
   - name: filter
     type: string
-    description: "Filter string from primitives.cohort-builder, or a GraphQL operation."
+    description: "Filter string from _system.cohort-builder, or a GraphQL operation."
   - name: page_size
     type: integer
     default: 50

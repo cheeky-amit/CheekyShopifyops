@@ -1,4 +1,4 @@
-# cohort-builder (primitive)
+# cohort-builder
 
 **Internal building block.** Standardizes how merchant-typed filters get translated into Shopify search syntax for products, customers, and orders.
 

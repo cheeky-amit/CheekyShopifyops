@@ -1,11 +1,11 @@
 ---
-id: primitives.cohort-builder
+id: _system.cohort-builder
 name: cohort-builder
 title: Build product, customer, or order cohorts
 description: Reusable patterns for building filtered cohorts from Shopify search syntax, so domain skills don't reinvent filter strings.
 audience: contributor
 roles: []
-category: primitives
+category: _system
 risk: read
 mcp_tools:
   - search_products
@@ -111,7 +111,7 @@ These compile to filter strings. Add new ones via PR; document the rationale.
 ## Edge cases
 
 - **Bare name in customer spec.** Always rewrite to `first_name:X OR last_name:X`. Never pass through.
-- **Date math.** "Lapsed" needs an absolute ISO date — the primitive computes it at call time using the shop's timezone (from `primitives.shop-context`).
+- **Date math.** "Lapsed" needs an absolute ISO date — the primitive computes it at call time using the shop's timezone (from `_system.shop-context`).
 - **Unknown field name.** Reject with a clear error. Shopify silently ignores unknown fields and returns *everything* — that's a footgun.
 - **Mixed kinds.** A spec like "products in collection X" is a `kind: products` cohort with `collection_id:gid://...`. The primitive resolves the collection by name → GID via `search_collections` if needed.
 

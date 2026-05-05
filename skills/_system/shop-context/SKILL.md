@@ -1,11 +1,11 @@
 ---
-id: primitives.shop-context
+id: _system.shop-context
 name: shop-context
 title: Load shop context
 description: Load the connected store's profile (name, currency, timezone, plan, country) so other skills can tailor output to it.
 audience: contributor
 roles: []
-category: primitives
+category: _system
 risk: read
 mcp_tools:
   - get-shop-info

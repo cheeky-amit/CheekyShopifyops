@@ -1,4 +1,4 @@
-# shop-context (primitive)
+# shop-context
 
 **Internal building block.** Merchants don't invoke this directly.
 

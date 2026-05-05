@@ -1,4 +1,4 @@
-# safe-write (primitive)
+# safe-write
 
 **Internal building block.** The five-step contract every write skill must compose with:
 

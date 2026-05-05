@@ -1,11 +1,11 @@
 ---
-id: primitives.safe-write
+id: _system.safe-write
 name: safe-write
 title: Preview, confirm, execute, log
 description: The five-step write contract every mutating skill must compose with — read current state, show diff, confirm, write with CAS where supported, log before/after.
 audience: contributor
 roles: []
-category: primitives
+category: _system
 risk: read
 mcp_tools: []
 graphql:
@@ -37,7 +37,7 @@ version: 1.0.0
 
 The repo's safety contract is "read → diff → confirm → CAS-write → log → rollback note." This primitive is the contract in concrete form. Every domain skill with `risk: write` or `risk: bulk-write` composes with this primitive.
 
-Reviewers verify compliance by checking that write skills reference `primitives.safe-write` in their workflow.
+Reviewers verify compliance by checking that write skills reference `_system.safe-write` in their workflow.
 
 ## When to use
 
@@ -54,7 +54,7 @@ Reviewers verify compliance by checking that write skills reference `primitives.
 
 1. **Read.** Call `read_fn`. Capture `before`. If `before` is empty (no records match the cohort), return `{ changes_proposed: 0, ... }` and stop — never confirm or write on an empty diff.
 2. **Propose.** Call `propose_fn(before)`. The result is a change set: list of `{ id, current, proposed, reason }`.
-3. **Diff render.** Format the change set into a merchant-readable preview, grouped by direction (e.g., "→ ARCHIVE", "→ ACTIVATE"). Show counts. Show real names (at runtime) but never expose internal tool names. Surface the store's `pretty` line from `primitives.shop-context` so the merchant always knows which store this is.
+3. **Diff render.** Format the change set into a merchant-readable preview, grouped by direction (e.g., "→ ARCHIVE", "→ ACTIVATE"). Show counts. Show real names (at runtime) but never expose internal tool names. Surface the store's `pretty` line from `_system.shop-context` so the merchant always knows which store this is.
 4. **Confirm.** Prompt explicitly:
    - For single-record writes: accept "yes / proceed / confirm / apply."
    - For bulk writes (`risk: bulk-write`): require unambiguous confirmation. "ok" alone is not enough.

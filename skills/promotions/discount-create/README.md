@@ -20,7 +20,7 @@ Create a percentage-off discount with safe scoping.
 - Free shipping — needs GraphQL `discountCodeFreeShipping`.
 - Automatic (non-code) discounts.
 
-For these, fall through to `primitives.graphql-helper`.
+For these, fall through to `_system.graphql-helper`.
 
 ## Important
 
