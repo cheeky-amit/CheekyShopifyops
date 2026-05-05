@@ -22,11 +22,11 @@ The merchant-side update tool for the profile that `first-run` saved. Use this w
 
 ## "Forget my profile"
 
-If you say "forget my profile", we delete all four `merchant_ai.*` keys on your store. We'll ask one explicit "are you sure?" prompt before doing it, and Shopify will ask once more. After delete, the next time you ask Claude for anything, the first-run flow triggers again — type "skip" if you want to stay on defaults.
+If you say "forget my profile", we delete the saved profile from your store. We'll ask one explicit "are you sure?" prompt before doing it, and Shopify will ask once more. After delete, the next time you ask Claude for anything, the first-run flow triggers again — type "skip" if you want to stay on defaults.
 
 ## What we never touch
 
-- Your products, orders, customers, inventory, or anything else outside the four `merchant_ai.*` profile keys.
+- Your products, orders, customers, inventory, or anything else outside the small profile we saved at first-run.
 
 ## What if the save fails?
 

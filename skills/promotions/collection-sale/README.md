@@ -27,7 +27,7 @@ Before creating, you'll see the collection (with product count), recent revenue,
 
 ## Settings you can change
 
-- **Collection** — by name. The skill resolves it.
+- **Collection** — by name. The skill looks it up.
 - **Percentage** (1–100) — the discount amount.
 - **Code** (optional) — what customers type. Auto-suggested if you skip it.
 - **Start and end** — when the sale runs.

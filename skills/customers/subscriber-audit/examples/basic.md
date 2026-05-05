@@ -18,7 +18,7 @@
 
   The 42 invalid emails are likely bounces or typos. Two ways to handle them:
     1) Re-collect at next checkout (Shopify can prompt for an email there).
-    2) Mark each as not-subscribed manually in your Shopify admin.
+    2) Mark them as not-subscribed in your Shopify admin.
 
   This skill won't auto-fix consent — that's a separate, careful workflow.
 

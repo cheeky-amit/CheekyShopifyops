@@ -40,7 +40,7 @@ Effect on subsequent skill calls
   shop-context now returns:
     onboarding_state:   { completed_at: null,
                           declined_at:  2026-05-05T14:02:00Z,
-                          version:      1.0 }
+                          version:      "1.0" }
     needs_onboarding:   false
     onboarding_skipped: true
 

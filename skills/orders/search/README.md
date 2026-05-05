@@ -21,7 +21,7 @@ If a few orders match, you'll get a compact list — date, customer (first name 
 
 ## Privacy note
 
-Customer names in the list view are abbreviated to first name + last initial. Open a specific order to see full customer details.
+In list views, customer names are shown abbreviated to first name + last initial — e.g., "Customer A B." for "Alex Brown." That keeps the list scannable and respects your customers' privacy. To see one specific order in full, ask for it by number, position, or customer email — for example, "show order #1001" or "show #1."
 
 ## Want to see under the hood
 

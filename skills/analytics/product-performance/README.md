@@ -21,7 +21,7 @@ A ranked list of products for the window you asked about. Each row shows the pro
 
 ## Settings you can change
 
-- **Range** (default: last 30 days). Any window — `last-7d`, `last-90d`, `mtd`, `ytd`, or a custom date span.
+- **Range** (default: last 30 days). Any window — the last 7 days, last 90 days, month-to-date, year-to-date, or a custom date span.
 - **Rank by** (default: gross sales). Options: gross sales, orders, sell-through rate, or net sales.
 - **Direction** (default: top). `top` for best, `bottom` for worst.
 - **How many** (default: 10). Ask for any number.

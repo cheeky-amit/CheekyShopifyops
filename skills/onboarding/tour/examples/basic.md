@@ -48,7 +48,7 @@ Step 1 — render tour
 Merchant: "show me around"
 
 Step 0 — load context
-  onboarding_state: { completed_at: 2026-04-01T10:00:00Z, declined_at: null, version: 1.0 }
+  onboarding_state: { completed_at: 2026-04-01T10:00:00Z, declined_at: null, version: "1.0" }
   needs_onboarding: false
   onboarding_skipped: false
 

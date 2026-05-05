@@ -14,13 +14,13 @@ The returning-customer rate for the period (with the change versus the previous 
 
 ## What it won't do
 
-- Won't compute lifetime value or retention curves by signup month. Those are heavier reports a future skill will cover.
+- Won't compute lifetime value or how each month's new customers behaved over time. Those are heavier reports a future skill will cover.
 - Won't filter by product or channel. Whole-store only in v1.
 - Won't include test orders or cancelled orders.
 
 ## Settings you can change
 
-- **Range** (default: last 90 days). Any window — `last-30d`, `last-180d`, `ytd`, or a custom date span.
+- **Range** (default: last 90 days). Any window — the last 30 days, last 180 days, year-to-date, or a custom date span.
 
 ## Heads up — small stores
 

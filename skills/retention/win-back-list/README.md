@@ -19,15 +19,15 @@ A short summary of the group (how many people, their average lifetime spend, ave
 - Won't include people who never opted into marketing. Subscribed customers only by default — you can change that, but the skill flags it.
 - Won't change anything — read-only.
 
+## Privacy note
+
+In list views, customer names are shown abbreviated to first name + last initial — e.g., "Customer A B." for "Alex Brown." That keeps the list scannable and respects your customers' privacy. To see one specific customer in full, ask for them by name, position, or email — for example, "show Customer A B." or "show #1." Email addresses are never shown in the summary view.
+
 ## Settings you can change
 
 - **Lapse threshold** (default: 6 months). Recent enough that the brand is still familiar, old enough to count as gone.
 - **Past orders minimum** (default: 2). Filters one-time buyers — they're a different problem than retention.
 - **Subscribed only** (default: on). Off pulls everyone, but the skill warns you about emailing non-subscribers.
-
-## Privacy note
-
-Customer names are abbreviated to first name + last initial in this list view (so "Customer A B." stands for "Customer A B[last name]"). To see one specific person in full (full name, email), ask for them by name or position — for example, "show #1." Email addresses are never shown in the summary view.
 
 ## Want to see under the hood
 

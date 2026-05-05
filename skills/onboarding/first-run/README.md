@@ -19,20 +19,20 @@ It takes about a minute. You can also type **"skip"** at any time and we'll use 
 
 ## What we save
 
-We save four small pieces of structured data on your store, under namespace `merchant_ai`. (A `[Shopify "metafield" — a small bit of structured data your store can hold]` is how Shopify lets apps stash settings on a shop.) Specifically:
+We save a small profile to your store — four little pieces of structured data (Shopify metafields are small bits of structured data your store can hold). Specifically:
 
 - **Who you are** — your name and role, the voice you prefer, and how strict you want change-confirmations to be.
 - **What stage your store is at** — just-launched / under-10k-mo / 10k-100k / 100k-1m / 1m+, plus a short model line and discipline signals.
-- **Rituals** — whether you want a weekly Monday-morning brief.
+- **Rituals** — whether you want a weekly brief, and which day.
 - **Onboarding state** — when you completed it, so we don't ask again.
 
-Your data stays on your store. It's not sent anywhere else.
+Your profile is saved on your store. It stays in your store; it's not sent anywhere else. (One small caveat: other apps you install on the same store with metafield-read permission could read it.)
 
 ## What we don't save
 
 - Your email address.
 - Anything about specific products, orders, or customers.
-- Anything outside the four `merchant_ai.*` keys above.
+- Anything outside the small profile above.
 
 ## What if you skip?
 
@@ -44,8 +44,8 @@ Sometimes the host blocks the write, or the network blips. If that happens we'll
 
 ## Changing your mind later
 
-- Want to update your role, your stage, or your preferences? Say "update my profile" — that runs `onboarding.refresh-profile`.
-- Want it gone entirely? Say "forget my profile" — that deletes all four `merchant_ai.*` keys.
+- Want to update your role, your stage, or your preferences? Say "update my profile."
+- Want it gone entirely? Say "forget my profile" — we delete the saved profile from your store.
 
 ## Examples
 

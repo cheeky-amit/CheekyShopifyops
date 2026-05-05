@@ -21,7 +21,7 @@ A short summary of the period — orders, total sales, average order value, sess
 
 ## Settings you can change
 
-- **Range** — `today`, `yesterday`, `last-7d`, `last-30d`, `last-90d`, `mtd` (month-to-date), `qtd` (quarter-to-date), `ytd` (year-to-date), or any custom window like `2026-01-01..2026-01-15`.
+- **Range** — today, yesterday, the last 7 / 30 / 90 days, month-to-date, quarter-to-date, year-to-date, or any custom window like `2026-01-01..2026-01-15`.
 
 ## Want to see under the hood
 

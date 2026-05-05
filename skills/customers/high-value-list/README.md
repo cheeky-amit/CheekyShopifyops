@@ -20,7 +20,7 @@ A ranked list. Each row shows the customer, their lifetime spend, how many order
 
 ## Privacy note
 
-Names are shown abbreviated by default — first name plus last initial, like "Customer A B." That keeps the list scannable without splashing every customer's full identity on screen. To see one specific customer in full (full name, email, address), ask for them by name or position — for example, "show Customer A B." or "show #1."
+In list views, customer names are shown abbreviated to first name + last initial — e.g., "Customer A B." for "Alex Brown." That keeps the list scannable and respects your customers' privacy. To see one specific customer in full, ask for them by name, position, or email — for example, "show Customer A B." or "show #1."
 
 ## Settings you can change
 

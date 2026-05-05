@@ -76,7 +76,8 @@ Profiles change. Operator gets replaced; store moves up a stage; the merchant de
 5. **Confirm.** Wait for "yes" / "edit" / "no". On "edit", loop back to step 3. On "no", abort with "Nothing changed."
 
 6. **Execute.**
-   - **Edit branch.** Validate and call `metafieldsSet` via `_system.graphql-helper`. Same mutation shape as first-run, but only with the keys that changed. (Unchanged metafields can be omitted; `metafieldsSet` is upsert-per-key.)
+   - **Pre-write re-read (round-trip).** Immediately before writing, re-fetch the raw metafield value for each key being changed. Merge the merchant's edits into the raw JSON object so any unknown fields a future v2 might have added survive the round-trip. If the re-read JSON differs from what the merchant saw in the preview, abort (CAS mitigation; see Safety).
+   - **Edit branch.** Validate and call `metafieldsSet` via `_system.graphql-helper`. Same mutation shape as first-run, but only with the keys that changed, and with the merged JSON so unknown fields are preserved. (Unchanged metafields can be omitted; `metafieldsSet` is upsert-per-key.)
    - **Forget branch.** Validate and call `metafieldsDelete` via `_system.graphql-helper`:
      ```graphql
      mutation ForgetProfile($metafields: [MetafieldIdentifierInput!]!) {
@@ -112,7 +113,7 @@ What the merchant sees:
 
 - **Two confirmations.** This skill's "yes/edit/no" plus the host's mutation prompt for `metafieldsSet` / `metafieldsDelete`. Same as first-run — flag in step 4.
 - **Forget is destructive.** "Forget my profile" deletes all four metafields. Confirm explicitly with a separate prompt: "This will delete everything we've saved about you and the store. Are you sure? (yes / no)".
-- **Compare-and-swap.** `metafieldsSet` and `metafieldsDelete` don't expose a CAS field. Mitigate by re-reading the profile in step 1 and aborting if the saved JSON has changed since the merchant began this flow (someone else, or another session, edited mid-flight).
+- **Compare-and-swap.** `metafieldsSet` and `metafieldsDelete` don't expose a CAS field. Step 1 re-reads the current metafield value immediately before write. If the parsed values differ from what was shown to the merchant in the preview (someone else updated the profile mid-flight), abort and ask the merchant to refresh.
 - **Mutation blocked / write fails.** If `metafieldsSet` errors, fall back: "I can't save changes to your store right now — your profile is unchanged. Try again next time." Do not silently retry.
 - **Rollback.** Run this skill again with the previous values. The run log gives the merchant the data they need.
 

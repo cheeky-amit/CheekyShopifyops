@@ -75,15 +75,17 @@ Stores accumulate product-status drift over time. Some products that should be s
 
 ## Workflow
 
-0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity. This is bulk-write — the strict confirm in step 5 always applies regardless of `write_defaults`. Surface `shop.pretty` to the merchant — every preview must say which store this is for.
+0. **Load context.** Call `_system.shop-context`. The returned object includes:
+   - `shop`, `operator`, `store`, `rituals`, `onboarding_state`.
+   - `needs_onboarding` and `onboarding_skipped` flags.
 
-1. (shop context already loaded above — store name and pretty line are available for headers.)
+   If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity. This is bulk-write — the strict confirm in step 4 always applies regardless of `write_defaults`. Surface `shop.pretty` to the merchant — every preview must say which store this is for.
 
-2. **Build the audit cohort.**
+1. **Build the audit cohort.**
    - If `cohort` input is provided, use it as the base filter for `search_products`.
    - Otherwise, audit everything (no base filter).
 
-3. **Find candidates in three buckets.** Run three `search_products` queries (paginated) over the cohort:
+2. **Find candidates in three buckets.** Run three `search_products` queries (paginated) over the cohort:
 
    - **Bucket A — `ACTIVE` with no inventory and no recent sales.**
      Filter: `status:active AND inventory_total:0`.
@@ -103,7 +105,7 @@ Stores accumulate product-status drift over time. Some products that should be s
      Filter: `status:archived`.
      For each, call `get-product` to find its collections. If any collection is published, propose `ARCHIVED → DRAFT` (the merchant can choose to fully delete or revive).
 
-4. **Compose the diff.**
+3. **Compose the diff.**
    Group results by direction. Show the merchant:
    ```
    Audit on <store-name> · cohort: <cohort or "everything">
@@ -129,15 +131,15 @@ Stores accumulate product-status drift over time. Some products that should be s
    ```
    No raw GIDs in body unless the merchant asks for them. No real product names — the **runtime** will show real names; this skill's *examples* in this repo only ever use placeholders.
 
-5. **Confirm.** Wait for explicit confirmation. If `dry_run = true` (default), tell the merchant the preview-only mode is on and they need to opt out (e.g., "apply for real") to actually write. The bulk-write confirmation must include the exact change count — accept only `yes — apply these <N>` where `<N>` matches the proposed count from step 4. A bare "yes" or "ok" is rejected; ask the merchant to repeat with the count. This applies regardless of `write_defaults`.
+4. **Confirm.** Wait for explicit confirmation. If `dry_run = true` (default), tell the merchant the preview-only mode is on and they need to opt out (e.g., "apply for real") to actually write. The bulk-write confirmation must include the exact change count — accept only `yes — apply these <N>` where `<N>` matches the proposed count from step 3. A bare "yes" or "ok" is rejected; ask the merchant to repeat with the count. This applies regardless of `write_defaults`.
 
-6. **Execute.**
+5. **Execute.**
    - If `dry_run = true`, stop here. Output the run log only.
    - If `dry_run = false` and the merchant confirmed, batch product IDs by target status (`ACTIVE`, `DRAFT`, `ARCHIVED`).
    - For each batch, call `bulk-update-product-status` with up to 50 IDs.
    - Re-read each updated product (or use the tool's response) to verify the status applied.
 
-7. **Log and rollback note.** Output a structured before/after log:
+6. **Log and rollback note.** Output a structured before/after log:
    ```
    Run: catalog.product-status-audit @ <iso-timestamp>
    Store: <store>

@@ -20,7 +20,7 @@ A small table that walks shoppers from session through to purchase, showing how 
 
 ## Settings you can change
 
-- **Range** (default: last 30 days). Any window — `last-7d`, `last-90d`, `mtd`, `ytd`, or a custom date span.
+- **Range** (default: last 30 days). Any window — the last 7 days, last 90 days, month-to-date, year-to-date, or a custom date span.
 - **Split by** (optional). `device`, `country`, or `source` — surfaces where the funnel breaks worst.
 
 ## Want to see under the hood

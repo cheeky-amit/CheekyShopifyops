@@ -67,7 +67,7 @@ The merchant can always type "skip" and we save a "declined" marker so we don't 
 
 1. **Step 0 — load context.** Call `_system.shop-context`. If `needs_onboarding: false` AND the merchant didn't say "set me up" / "update profile" → exit and tell them they're already set up; offer `onboarding.refresh-profile` if they want changes.
 
-2. **Auto-discovery (read-only sweep, ~5–10 calls).** Build a draft store profile from signals — do NOT save anything yet:
+2. **Auto-discovery (read-only sweep, ~5–10 calls).** This takes a few seconds — tell the merchant "one moment, getting a feel for your store" so they're not staring at silence. Build a draft store profile from signals — do NOT save anything yet:
    - `get-shop-info` for plan / currency / timezone / country (already in shop-context).
    - `run-analytics-query` `FROM products SHOW count` for catalog size.
    - `search_collections first:1` for "any collections at all?" (boolean) plus `run-analytics-query` `FROM collections SHOW count` if available.
@@ -104,6 +104,10 @@ The merchant can always type "skip" and we save a "declined" marker so we don't 
      (c) For big or bulk changes, always confirm. For small ones, just do it."
    - **(d) Ritual.**
      "Want a Monday-morning brief each week? (yes-Monday / yes-other-day / no)"
+
+   3.5. **Ritual day follow-up.** If the merchant answered "yes-other-day", ask:
+   "Which day works better? (Tue / Wed / Thu / Fri / Sat / Sun)"
+   Save the answer in `rituals.weekly_brief_day`. For "yes-Monday", set `weekly_brief_day = "Mon"`. For "no", set `monday_brief: false` and `weekly_brief_day: null`.
 
 4. **Skip handling.** If the merchant types "skip" / "use defaults" / declines:
    - Construct `onboarding_state = { completed_at: null, declined_at: <now-iso>, version: "1.0" }`.

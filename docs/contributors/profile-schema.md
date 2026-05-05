@@ -64,6 +64,7 @@ Validation:
 Validation:
 - `stage` MUST be one of the five enum values. On read, treat unknown values as null and ask the merchant to refresh.
 - `last_refreshed` MUST be an ISO-8601 timestamp.
+- `model` is **display-only**. It's a free-form one-line summary intended for show-back to the merchant in the profile preview and weekly brief. Other skills MUST NOT branch on `model` content; if a downstream skill needs structured signal (e.g. country, currency, channel), read it from `discipline` (extend with new flags as needed) or from `get-shop-info`.
 
 ### `merchant_ai.rituals`
 

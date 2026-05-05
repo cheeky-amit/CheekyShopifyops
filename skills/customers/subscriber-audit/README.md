@@ -16,7 +16,11 @@ A breakdown of every customer by their email-marketing state, plus a conversion 
 - **Pending** — they signed up but haven't clicked the confirmation link yet (a "double opt-in" still in flight).
 - **Not subscribed** — they exist as customers but never opted into marketing.
 - **Invalid** — bounced, mistyped, or otherwise unreachable. Worth cleaning up.
-- **Redacted (GDPR)** — customers who exercised their right to be forgotten. Those records are protected; the audit only counts them, never shows them.
+- **Redacted** — customers who exercised their right to be forgotten. The audit counts them, never shows them.
+
+## Privacy note
+
+Redacted customers (GDPR or other right-to-be-forgotten requests) are counted only — never named, never enumerated. The audit shows aggregate buckets, not individuals. To look at one specific customer's consent, ask for them by name or email.
 
 ## What it won't do
 

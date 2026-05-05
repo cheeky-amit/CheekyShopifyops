@@ -50,17 +50,21 @@ A quick health-check a merchant can ask any time. "How are sales today?" → 6-l
 
 ## Workflow
 
-0. **Load context.** Call `_system.shop-context`. The returned object includes `shop`, `operator`, `store`, `rituals`, `onboarding_state`, plus `needs_onboarding` and `onboarding_skipped` flags. If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity, `operator.write_defaults` for confirm strictness, and `store.stage` to scale defaults. Use `shop.timezone` here for computing "today" (matters when crossing a date boundary).
-1. (shop-context already loaded above; reuse `shop.timezone`.)
-2. For sales/AOV/orders, call `run-analytics-query`:
+0. **Load context.** Call `_system.shop-context`. The returned object includes:
+   - `shop`, `operator`, `store`, `rituals`, `onboarding_state`.
+   - `needs_onboarding` and `onboarding_skipped` flags.
+
+   If `needs_onboarding: true` and the merchant's ask isn't "set me up": invoke `onboarding.first-run` silently, complete it, then resume here. If `onboarding_skipped: true`: proceed with defaults (voice=`conversational`, write_defaults=`a`). Use `operator.voice` for verbosity, `operator.write_defaults` for confirm strictness, and `store.stage` to scale defaults. Reuse `shop.timezone` in step 1 for computing "today" (matters when crossing a date boundary).
+
+1. For sales/AOV/orders, call `run-analytics-query`:
    ```
    FROM sales
    SHOW orders, total_sales, average_order_value
    SINCE today UNTIL today
    ```
    For `today-vs-yesterday`, append `COMPARE TO previous_period`.
-3. For fulfillment status, call `list-orders` with `query: "created_at:>'<today-start>'"` and bucket by `fulfillment_status` (`unfulfilled`, `partial`, `fulfilled`).
-4. Compose summary.
+2. For fulfillment status, call `list-orders` with `query: "created_at:>'<today-start>'"` and bucket by `fulfillment_status` (`unfulfilled`, `partial`, `fulfilled`).
+3. Compose summary.
 
 ## Output format
 

@@ -24,14 +24,14 @@ Each row shows the order number, how old it is, the customer (first name + last 
 - Won't refund or cancel orders — refunds are blocked at Shopify; do those in your admin.
 - Won't change anything — this is a read-only watchlist.
 
+## Privacy note
+
+In list views, customer names are shown abbreviated to first name + last initial — e.g., "Customer A B." for "Alex Brown." That keeps the list scannable and respects your customers' privacy. To see one specific order in full, ask for it by number — for example, "show ORDER-1001."
+
 ## Settings you can change
 
 - **Stale threshold** (default: 72 hours). Anything paid-and-unfulfilled past this age shows up in the stale group.
 - **Include partial** (default: on). Toggle off if you don't want partial-fulfillment orders in the list.
-
-## Privacy note
-
-Customer names are abbreviated to first name + last initial in this list view (so "Customer A B." stands for "Customer A B[last name]"). To see a specific order's full details, ask for it by number — for example, "show ORDER-1001."
 
 ## Want to see under the hood
 

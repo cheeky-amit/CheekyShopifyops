@@ -28,7 +28,7 @@ It reads the shop profile, counts products and collections, and totals orders an
 
 ## Related
 
-- [`analytics.daily-pulse`](../../analytics/daily-pulse/) — today's sales in detail.
+- [`analytics.daily-pulse`](../../analytics/daily-pulse/) — sales numbers for any window.
 - [`orders.fulfillment-watchlist`](../../orders/fulfillment-watchlist/) — paid orders that haven't shipped.
 - [`inventory.low-stock-alert`](../../inventory/low-stock-alert/) — what's running low first.
 - [`reporting.weekly-merchant-brief`](../../reporting/weekly-merchant-brief/) — Monday-morning digest with the same numbers and more.

@@ -20,7 +20,7 @@ A table of channels with sessions, orders, sales, and conversion rate for each. 
 
 ## Settings you can change
 
-- **Range** (default: last 30 days). Any window — `last-7d`, `last-90d`, `mtd`, `ytd`, or a custom date span.
+- **Range** (default: last 30 days). Any window — the last 7 days, last 90 days, month-to-date, year-to-date, or a custom date span.
 - **Drill-in** (default: off). Turn on to split each channel by named referrer (Instagram vs Facebook, Google vs Bing, etc.).
 
 ## Want to see under the hood
