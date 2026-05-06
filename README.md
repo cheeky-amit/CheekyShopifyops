@@ -1,4 +1,4 @@
-# CheekyShopifyops
+#Shopifyops
 
 Run your Shopify store through Claude — in plain language. Drop this in, connect your store, and ask things like:
 
